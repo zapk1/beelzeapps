@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html data-filename="layout" data-linenumber="108" data-visual-selector-id="layout108" lang="en">
+<head data-filename="layout" data-linenumber="109" data-visual-selector-id="layout109">
+    <meta data-filename="layout" data-linenumber="110" data-visual-selector-id="layout110" charset="UTF-8">
+    <meta data-filename="layout" data-linenumber="111" data-visual-selector-id="layout111" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-filename="layout" data-linenumber="112" data-visual-selector-id="layout112">Firebase Forge - Saved from Firebase Academy</title>
+    <style data-filename="layout" data-linenumber="113" data-visual-selector-id="layout113">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f0 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .ai-assistant {
+            background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.3);
+        }
+        
+        .ai-assistant h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-assistant textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+        
+        .ai-assistant input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .ai-assistant button {
+            background: white;
+            color: #9c27b0;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .ai-assistant button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .ai-response {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .ai-response.show {
+            display: block;
+        }
+        
+        .category-section {
+            margin-bottom: 50px;
+        }
+        
+        .category-title {
+            font-size: 2em;
+            color: #ff5722;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff5722;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tutorial-card {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .tutorial-card h3 {
+            color: #ff5722;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .tutorial-content {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .code-title {
+            background: #2d2d2d;
+            color: #888;
+            padding: 10px 15px;
+            border-radius: 10px 10px 0 0;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .copy-btn:hover {
+            background: #45a049;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #ff5722;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body data-filename="layout" data-linenumber="329" data-visual-selector-id="layout329">
+    <div data-filename="layout" data-linenumber="330" data-visual-selector-id="layout330" class="header">
+        <h1 data-filename="layout" data-linenumber="331" data-visual-selector-id="layout331">🔥 Firebase Academy</h1>
+        <p data-filename="layout" data-linenumber="332" data-visual-selector-id="layout332">Master Firebase, Firestore, Authentication, and Web Development</p>
+        <p data-filename="layout" data-linenumber="333" data-visual-selector-id="layout333" style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Saved on 21/10/2025</p>
+    </div>
+
+    <div data-filename="layout" data-linenumber="336" data-visual-selector-id="layout336" class="container">
+        <div data-filename="layout" data-linenumber="337" data-visual-selector-id="layout337" class="ai-assistant">
+            <h2 data-filename="layout" data-linenumber="338" data-visual-selector-id="layout338">✨ AI Code Explainer</h2>
+            <p data-filename="layout" data-linenumber="339" data-visual-selector-id="layout339" style="margin-bottom: 20px;">Paste any code and ask questions - AI will explain everything!</p>
+            
+            <textarea data-filename="layout" data-linenumber="341" data-visual-selector-id="layout341" id="codeInput" placeholder="Paste your Firebase code, HTML, JavaScript, or any code here..."></textarea>
+            
+            <input data-filename="layout" data-linenumber="343" data-visual-selector-id="layout343" type="text" id="questionInput" placeholder="Ask a question (optional): e.g., 'How does this work?', 'What does getDocs mean?'">
+            
+            <button data-filename="layout" data-linenumber="345" data-visual-selector-id="layout345" onclick="explainCode()">🚀 Explain This Code</button>
+            
+            <div data-filename="layout" data-linenumber="347" data-visual-selector-id="layout347" id="aiResponse" class="ai-response">
+                <h3 data-filename="layout" data-linenumber="348" data-visual-selector-id="layout348">💡 Explanation:</h3>
+                <div data-filename="layout" data-linenumber="349" data-visual-selector-id="layout349" id="responseContent"></div>
+            </div>
+        </div>
+
+        <input data-filename="layout" data-linenumber="353" data-visual-selector-id="layout353" type="text" class="search-box" id="searchBox" placeholder="🔍 Search tutorials..." onkeyup="searchTutorials()">
+
+        <div data-filename="layout" data-linenumber="355" data-visual-selector-id="layout355" id="tutorialContent">
+
+      <div data-filename="layout" data-linenumber="61" data-visual-selector-id="layout61" class="category-section">
+        <h2 data-filename="layout" data-linenumber="62" data-visual-selector-id="layout62" class="category-title">🔥 Firebase Basics</h2>
+      
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firebase Basics</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Getting Started with Firebase</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## What is Firebase?<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Firebase is a platform developed by Google that helps you build apps quickly. Think of it as a complete backend solution - you don't need to worry about servers, databases, or complex infrastructure.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Why Use Firebase?<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **No Server Setup**: Everything runs in the cloud<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Real-time Updates**: Changes sync instantly across all devices<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Built-in Authentication**: Easy user login systems<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **File Storage**: Store images, videos, and files easily<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Free to Start**: Generous free tier for learning<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## What You'll Need<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. A Google account (Gmail)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. Basic HTML and JavaScript knowledge<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. A text editor (like VS Code)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Creating Your First Firebase Project<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. Go to [Firebase Console](https://console.firebase.google.com/)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. Click "Add Project"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. Give your project a name<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">4. Choose your settings (you can disable analytics for now)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">5. Click "Create Project"
+          </div>
+        </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firebase Basics</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Firebase Configuration & Setup</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Getting Your Firebase Config<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Every Firebase project has a unique configuration object. This is like your app's ID card.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### Step 1: Get Your Config<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. In Firebase Console, go to Project Settings (gear icon)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. Scroll down to "Your apps"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. Click the web icon (</>)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">4. Register your app<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">5. Copy the config object<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### Step 2: Add Firebase to Your HTML<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">You need to include Firebase SDK scripts in your HTML file before you can use Firebase.
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">HTML Setup - Complete Example - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Firebase App&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;My First Firebase App&lt;/h1&gt;
+
+    &lt;!-- Firebase SDK Scripts --&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- Your JavaScript --&gt;
+    &lt;script&gt;
+        // Your Firebase config (from Firebase Console)
+        const firebaseConfig = {
+            apiKey: &quot;YOUR_API_KEY&quot;,
+            authDomain: &quot;YOUR_PROJECT_ID.firebaseapp.com&quot;,
+            projectId: &quot;YOUR_PROJECT_ID&quot;,
+            storageBucket: &quot;YOUR_PROJECT_ID.appspot.com&quot;,
+            messagingSenderId: &quot;YOUR_SENDER_ID&quot;,
+            appId: &quot;YOUR_APP_ID&quot;
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Get Firestore database reference
+        const db = firebase.firestore();
+
+        console.log(&quot;Firebase is ready!&quot;);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            </div></div>
+      <div data-filename="layout" data-linenumber="61" data-visual-selector-id="layout61" class="category-section">
+        <h2 data-filename="layout" data-linenumber="62" data-visual-selector-id="layout62" class="category-title">📊 Firestore Database</h2>
+      
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Understanding Firestore Database</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## What is Firestore?<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Firestore is Firebase's database. Unlike traditional databases with tables and rows, Firestore uses:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Collections**: Like folders that hold documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Documents**: Individual items with data (like a file)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### Structure Example<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">```<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">posts (collection)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">  ├── post1 (document)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">  │   ├── title: "Hello World"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">  │   ├── content: "My first post"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">  │   └── date: 2024-01-01<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">  └── post2 (document)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">      ├── title: "Second Post"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">      └── content: "Another post"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">```<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Setting Up Firestore<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. In Firebase Console, go to "Firestore Database"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. Click "Create Database"<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. Choose "Start in test mode" (for learning)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">4. Select a location<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">5. Click "Enable"
+          </div>
+        </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Creating Data (POST)</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Adding Documents to Firestore<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">There are two ways to add data:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### Method 1: Auto-generated ID<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Firestore creates a unique ID for you.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### Method 2: Custom ID<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">You choose the document ID.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## When to Use Each Method<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Auto ID**: Use for most cases (posts, comments, messages)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **Custom ID**: Use when you need a specific ID (user profiles using their email)
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Adding Data with Auto ID - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Add a new post
+db.collection(&#039;posts&#039;).add({
+    title: &#039;My First Post&#039;,
+    content: &#039;This is the content&#039;,
+    author: &#039;John Doe&#039;,
+    createdAt: new Date()
+})
+.then((docRef) =&gt; {
+    console.log(&#039;Post created with ID:&#039;, docRef.id);
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Adding Data with Custom ID - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Create a user profile with email as ID
+db.collection(&#039;users&#039;).doc(&#039;john@example.com&#039;).set({
+    name: &#039;John Doe&#039;,
+    age: 25,
+    country: &#039;USA&#039;,
+    joinedDate: new Date()
+})
+.then(() =&gt; {
+    console.log(&#039;User profile created!&#039;);
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Complete Example with HTML Form - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h2&gt;Create New Post&lt;/h2&gt;
+    &lt;input type=&quot;text&quot; id=&quot;titleInput&quot; placeholder=&quot;Post Title&quot;&gt;
+    &lt;textarea id=&quot;contentInput&quot; placeholder=&quot;Post Content&quot;&gt;&lt;/textarea&gt;
+    &lt;button onclick=&quot;createPost()&quot;&gt;Submit Post&lt;/button&gt;
+
+    &lt;div id=&quot;message&quot;&gt;&lt;/div&gt;
+
+    &lt;!-- Firebase Scripts --&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+        // Initialize Firebase
+        const firebaseConfig = { /* your config */ };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function createPost() {
+            const title = document.getElementById(&#039;titleInput&#039;).value;
+            const content = document.getElementById(&#039;contentInput&#039;).value;
+
+            db.collection(&#039;posts&#039;).add({
+                title: title,
+                content: content,
+                createdAt: new Date()
+            })
+            .then(() =&gt; {
+                document.getElementById(&#039;message&#039;).innerHTML = &#039;Post created!&#039;;
+                document.getElementById(&#039;titleInput&#039;).value = &#039;&#039;;
+                document.getElementById(&#039;contentInput&#039;).value = &#039;&#039;;
+            })
+            .catch((error) =&gt; {
+                document.getElementById(&#039;message&#039;).innerHTML = &#039;Error: &#039; + error;
+            });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Reading Data (GET)</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Getting Data from Firestore<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">There are several ways to read data:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### 1. Get All Documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Fetch all documents in a collection.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### 2. Get One Document<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Fetch a specific document by its ID.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### 3. Real-time Updates<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Automatically update when data changes (like live updates!).<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Understanding .then()<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Firebase operations are asynchronous. Think of `.then()` as "when the data arrives, do this".
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Get All Posts - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Fetch all posts
+db.collection(&#039;posts&#039;).get()
+.then((querySnapshot) =&gt; {
+    querySnapshot.forEach((doc) =&gt; {
+        console.log(&#039;Post ID:&#039;, doc.id);
+        console.log(&#039;Data:&#039;, doc.data());
+        console.log(&#039;Title:&#039;, doc.data().title);
+        console.log(&#039;---&#039;);
+    });
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Get Single Document - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get specific post by ID
+const postId = &#039;abc123&#039;;
+
+db.collection(&#039;posts&#039;).doc(postId).get()
+.then((doc) =&gt; {
+    if (doc.exists) {
+        console.log(&#039;Post data:&#039;, doc.data());
+        console.log(&#039;Title:&#039;, doc.data().title);
+    } else {
+        console.log(&#039;Post not found!&#039;);
+    }
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Display Posts in HTML - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;div id=&quot;postsList&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+// Fetch and display all posts
+function loadPosts() {
+    const postsContainer = document.getElementById(&#039;postsList&#039;);
+    
+    db.collection(&#039;posts&#039;).get()
+    .then((querySnapshot) =&gt; {
+        postsContainer.innerHTML = &#039;&#039;; // Clear existing content
+        
+        querySnapshot.forEach((doc) =&gt; {
+            const post = doc.data();
+            
+            // Create HTML for each post
+            const postDiv = document.createElement(&#039;div&#039;);
+            postDiv.className = &#039;post&#039;;
+            postDiv.innerHTML = `
+                &lt;h3&gt;${post.title}&lt;/h3&gt;
+                &lt;p&gt;${post.content}&lt;/p&gt;
+                &lt;small&gt;By ${post.author}&lt;/small&gt;
+            `;
+            
+            postsContainer.appendChild(postDiv);
+        });
+    })
+    .catch((error) =&gt; {
+        postsContainer.innerHTML = &#039;Error loading posts: &#039; + error;
+    });
+}
+
+// Call the function when page loads
+loadPosts();
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Real-time Updates (Auto-refresh) - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Listen for changes in real-time
+db.collection(&#039;posts&#039;).onSnapshot((querySnapshot) =&gt; {
+    const postsList = document.getElementById(&#039;postsList&#039;);
+    postsList.innerHTML = &#039;&#039;;
+    
+    querySnapshot.forEach((doc) =&gt; {
+        const post = doc.data();
+        postsList.innerHTML += `
+            &lt;div class=&quot;post&quot;&gt;
+                &lt;h3&gt;${post.title}&lt;/h3&gt;
+                &lt;p&gt;${post.content}&lt;/p&gt;
+            &lt;/div&gt;
+        `;
+    });
+    
+    console.log(&#039;Posts updated in real-time!&#039;);
+});
+
+// The page will automatically update when someone adds/changes a post!</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Updating Data (UPDATE)</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Updating Documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">There are two methods:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### update()<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Updates specific fields, leaves others unchanged.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">### set()<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Replaces the entire document.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## When to Use Which<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **update()**: Change only certain fields (recommended)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **set()**: Replace everything (careful!)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **set() with merge**: Updates fields but keeps others
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Update Specific Fields - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Update only the title and content
+const postId = &#039;abc123&#039;;
+
+db.collection(&#039;posts&#039;).doc(postId).update({
+    title: &#039;Updated Title&#039;,
+    content: &#039;Updated content here&#039;,
+    lastModified: new Date()
+})
+.then(() =&gt; {
+    console.log(&#039;Post updated successfully!&#039;);
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error updating:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Update with User Input - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;input type=&quot;text&quot; id=&quot;postId&quot; placeholder=&quot;Post ID to update&quot;&gt;
+&lt;input type=&quot;text&quot; id=&quot;newTitle&quot; placeholder=&quot;New Title&quot;&gt;
+&lt;button onclick=&quot;updatePost()&quot;&gt;Update Post&lt;/button&gt;
+
+&lt;script&gt;
+function updatePost() {
+    const postId = document.getElementById(&#039;postId&#039;).value;
+    const newTitle = document.getElementById(&#039;newTitle&#039;).value;
+    
+    db.collection(&#039;posts&#039;).doc(postId).update({
+        title: newTitle,
+        lastModified: new Date()
+    })
+    .then(() =&gt; {
+        alert(&#039;Post updated!&#039;);
+    })
+    .catch((error) =&gt; {
+        alert(&#039;Error: &#039; + error.message);
+    });
+}
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Set with Merge (Safer Update) - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Updates only specified fields, creates document if doesn&#039;t exist
+db.collection(&#039;users&#039;).doc(&#039;john@example.com&#039;).set({
+    lastLogin: new Date(),
+    loginCount: 10
+}, { merge: true })
+.then(() =&gt; {
+    console.log(&#039;User info updated!&#039;);
+});
+
+// This won&#039;t delete other fields like name, age, etc.</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Deleting Data (DELETE)</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Deleting Documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">You can delete:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Entire documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Specific fields within documents<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Important Notes<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">⚠️ **Deletion is permanent!** There's no undo.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">⚠️ **Deleting a document doesn't delete its subcollections.**<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Best Practices<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. Always confirm before deleting<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. Consider soft deletes (marking as deleted) instead<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. Make sure you have the correct document ID
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Delete a Document - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Delete a post
+const postId = &#039;abc123&#039;;
+
+db.collection(&#039;posts&#039;).doc(postId).delete()
+.then(() =&gt; {
+    console.log(&#039;Post deleted successfully!&#039;);
+})
+.catch((error) =&gt; {
+    console.error(&#039;Error deleting:&#039;, error);
+});</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Delete with Confirmation - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;div class=&quot;post&quot; id=&quot;post-abc123&quot;&gt;
+    &lt;h3&gt;My Post Title&lt;/h3&gt;
+    &lt;button onclick=&quot;deletePost(&#039;abc123&#039;)&quot;&gt;Delete&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function deletePost(postId) {
+    // Ask for confirmation
+    const confirmed = confirm(&#039;Are you sure you want to delete this post?&#039;);
+    
+    if (confirmed) {
+        db.collection(&#039;posts&#039;).doc(postId).delete()
+        .then(() =&gt; {
+            // Remove from page
+            document.getElementById(&#039;post-&#039; + postId).remove();
+            alert(&#039;Post deleted!&#039;);
+        })
+        .catch((error) =&gt; {
+            alert(&#039;Error: &#039; + error.message);
+        });
+    }
+}
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Delete a Field (Not the Whole Document) - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Remove just the &#039;age&#039; field from user profile
+db.collection(&#039;users&#039;).doc(&#039;john@example.com&#039;).update({
+    age: firebase.firestore.FieldValue.delete()
+})
+.then(() =&gt; {
+    console.log(&#039;Age field removed!&#039;);
+});
+
+// The user document still exists, just without the age field</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Soft Delete (Recommended for Important Data) - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Instead of deleting, mark as deleted
+db.collection(&#039;posts&#039;).doc(postId).update({
+    deleted: true,
+    deletedAt: new Date()
+})
+.then(() =&gt; {
+    console.log(&#039;Post marked as deleted&#039;);
+});
+
+// Then when fetching posts, filter out deleted ones:
+db.collection(&#039;posts&#039;)
+  .where(&#039;deleted&#039;, &#039;!=&#039;, true)
+  .get()
+  .then((snapshot) =&gt; {
+      // Only get non-deleted posts
+  });</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Firestore Database</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Filtering & Sorting Data</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Querying Data<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Firestore lets you filter and sort data before fetching it.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Common Queries<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **where()**: Filter by field value<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **orderBy()**: Sort results<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- **limit()**: Get only X number of results<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Query Operators<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `==` Equal to<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `!=` Not equal<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `>` Greater than<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `>=` Greater than or equal<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<` Less than<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<=` Less than or equal<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `in` Value in array<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `array-contains` Array contains value
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Filter Posts by Author - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get only posts by specific author
+db.collection(&#039;posts&#039;)
+  .where(&#039;author&#039;, &#039;==&#039;, &#039;John Doe&#039;)
+  .get()
+  .then((querySnapshot) =&gt; {
+      querySnapshot.forEach((doc) =&gt; {
+          console.log(&#039;Post:&#039;, doc.data().title);
+      });
+  });</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Sort and Limit Results - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get latest 10 posts
+db.collection(&#039;posts&#039;)
+  .orderBy(&#039;createdAt&#039;, &#039;desc&#039;)  // newest first
+  .limit(10)
+  .get()
+  .then((querySnapshot) =&gt; {
+      console.log(&#039;Latest 10 posts:&#039;);
+      querySnapshot.forEach((doc) =&gt; {
+          const post = doc.data();
+          console.log(post.title, post.createdAt);
+      });
+  });</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Multiple Filters - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get posts by author John, created in 2024, sorted by likes
+db.collection(&#039;posts&#039;)
+  .where(&#039;author&#039;, &#039;==&#039;, &#039;John Doe&#039;)
+  .where(&#039;year&#039;, &#039;==&#039;, 2024)
+  .orderBy(&#039;likes&#039;, &#039;desc&#039;)
+  .get()
+  .then((querySnapshot) =&gt; {
+      querySnapshot.forEach((doc) =&gt; {
+          console.log(doc.data());
+      });
+  });</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Search with Greater/Less Than - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get products priced between $10 and $50
+db.collection(&#039;products&#039;)
+  .where(&#039;price&#039;, &#039;&gt;=&#039;, 10)
+  .where(&#039;price&#039;, &#039;&lt;=&#039;, 50)
+  .orderBy(&#039;price&#039;, &#039;asc&#039;)
+  .get()
+  .then((querySnapshot) =&gt; {
+      console.log(&#039;Affordable products:&#039;);
+      querySnapshot.forEach((doc) =&gt; {
+          const product = doc.data();
+          console.log(product.name, &#039;$&#039; + product.price);
+      });
+  });</code></pre>
+              </div>
+            </div>
+            </div></div>
+      <div data-filename="layout" data-linenumber="61" data-visual-selector-id="layout61" class="category-section">
+        <h2 data-filename="layout" data-linenumber="62" data-visual-selector-id="layout62" class="category-title">🚀 Real Apps Examples</h2>
+      
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Real Apps Examples</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Complete Social Media App Example</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Building a Simple Social Media App<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">This example shows a complete working social media feed where users can:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Create posts<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- View all posts in real-time<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Like posts<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Delete their own posts<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">All data is stored in Firestore and updates automatically!
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Complete Social Media App - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Social Feed&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+        .post { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .post h3 { margin: 0 0 10px 0; color: #333; }
+        .post-actions { margin-top: 10px; }
+        button { padding: 8px 15px; margin-right: 5px; cursor: pointer; }
+        .like-btn { background: #4CAF50; color: white; border: none; }
+        .delete-btn { background: #f44336; color: white; border: none; }
+        textarea { width: 100%; height: 80px; margin: 10px 0; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;📱 My Social Feed&lt;/h1&gt;
+
+    &lt;!-- Create Post Form --&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;text&quot; id=&quot;authorName&quot; placeholder=&quot;Your name&quot; style=&quot;width: 100%; padding: 10px;&quot;&gt;
+        &lt;textarea id=&quot;postContent&quot; placeholder=&quot;What&#039;s on your mind?&quot;&gt;&lt;/textarea&gt;
+        &lt;button onclick=&quot;createPost()&quot; style=&quot;background: #2196F3; color: white; padding: 10px 20px;&quot;&gt;Post&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;hr&gt;
+
+    &lt;!-- Posts will appear here --&gt;
+    &lt;div id=&quot;feedContainer&quot;&gt;&lt;/div&gt;
+
+    &lt;!-- Firebase Scripts --&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+        // Initialize Firebase (use your config)
+        const firebaseConfig = {
+            apiKey: &quot;YOUR_API_KEY&quot;,
+            authDomain: &quot;YOUR_PROJECT.firebaseapp.com&quot;,
+            projectId: &quot;YOUR_PROJECT_ID&quot;,
+            storageBucket: &quot;YOUR_PROJECT.appspot.com&quot;,
+            messagingSenderId: &quot;YOUR_ID&quot;,
+            appId: &quot;YOUR_APP_ID&quot;
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Create new post
+        function createPost() {
+            const author = document.getElementById(&#039;authorName&#039;).value;
+            const content = document.getElementById(&#039;postContent&#039;).value;
+
+            if (!author || !content) {
+                alert(&#039;Please fill in all fields!&#039;);
+                return;
+            }
+
+            db.collection(&#039;posts&#039;).add({
+                author: author,
+                content: content,
+                likes: 0,
+                createdAt: new Date()
+            })
+            .then(() =&gt; {
+                document.getElementById(&#039;postContent&#039;).value = &#039;&#039;;
+                console.log(&#039;Post created!&#039;);
+            });
+        }
+
+        // Load and display posts in real-time
+        db.collection(&#039;posts&#039;)
+          .orderBy(&#039;createdAt&#039;, &#039;desc&#039;)
+          .onSnapshot((snapshot) =&gt; {
+              const container = document.getElementById(&#039;feedContainer&#039;);
+              container.innerHTML = &#039;&#039;;
+
+              snapshot.forEach((doc) =&gt; {
+                  const post = doc.data();
+                  const postId = doc.id;
+
+                  const postDiv = document.createElement(&#039;div&#039;);
+                  postDiv.className = &#039;post&#039;;
+                  postDiv.innerHTML = `
+                      &lt;h3&gt;${post.author}&lt;/h3&gt;
+                      &lt;p&gt;${post.content}&lt;/p&gt;
+                      &lt;div class=&quot;post-actions&quot;&gt;
+                          &lt;button class=&quot;like-btn&quot; onclick=&quot;likePost(&#039;${postId}&#039;, ${post.likes})&quot;&gt;
+                              👍 ${post.likes} Likes
+                          &lt;/button&gt;
+                          &lt;button class=&quot;delete-btn&quot; onclick=&quot;deletePost(&#039;${postId}&#039;)&quot;&gt;
+                              🗑️ Delete
+                          &lt;/button&gt;
+                      &lt;/div&gt;
+                  `;
+                  container.appendChild(postDiv);
+              });
+          });
+
+        // Like a post
+        function likePost(postId, currentLikes) {
+            db.collection(&#039;posts&#039;).doc(postId).update({
+                likes: currentLikes + 1
+            });
+        }
+
+        // Delete a post
+        function deletePost(postId) {
+            if (confirm(&#039;Delete this post?&#039;)) {
+                db.collection(&#039;posts&#039;).doc(postId).delete();
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Real Apps Examples</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">E-Commerce Store Example</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Building a Simple Online Store<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">This example creates a basic e-commerce store with:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Product listings<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Shopping cart<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Add to cart functionality<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- View cart total<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">All data is stored and managed in Firestore!
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Complete Online Store - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Store&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial; max-width: 800px; margin: 20px auto; }
+        .product { border: 1px solid #ddd; padding: 15px; margin: 10px; display: inline-block; width: 200px; }
+        .product img { width: 100%; height: 150px; object-fit: cover; }
+        .cart { position: fixed; top: 20px; right: 20px; background: white; border: 2px solid #333; padding: 15px; }
+        button { padding: 10px; cursor: pointer; background: #4CAF50; color: white; border: none; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;🛒 My Store&lt;/h1&gt;
+
+    &lt;!-- Shopping Cart --&gt;
+    &lt;div class=&quot;cart&quot;&gt;
+        &lt;h3&gt;Cart&lt;/h3&gt;
+        &lt;div id=&quot;cartItems&quot;&gt;Empty&lt;/div&gt;
+        &lt;hr&gt;
+        &lt;strong&gt;Total: $&lt;span id=&quot;cartTotal&quot;&gt;0&lt;/span&gt;&lt;/strong&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Products will appear here --&gt;
+    &lt;div id=&quot;productsContainer&quot;&gt;&lt;/div&gt;
+
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+        const firebaseConfig = { /* your config */ };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let cart = [];
+
+        // Load products
+        db.collection(&#039;products&#039;).get().then((snapshot) =&gt; {
+            const container = document.getElementById(&#039;productsContainer&#039;);
+            
+            snapshot.forEach((doc) =&gt; {
+                const product = doc.data();
+                container.innerHTML += `
+                    &lt;div class=&quot;product&quot;&gt;
+                        &lt;h3&gt;${product.name}&lt;/h3&gt;
+                        &lt;p&gt;$${product.price}&lt;/p&gt;
+                        &lt;button onclick=&quot;addToCart(&#039;${doc.id}&#039;, &#039;${product.name}&#039;, ${product.price})&quot;&gt;
+                            Add to Cart
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                `;
+            });
+        });
+
+        // Add to cart
+        function addToCart(id, name, price) {
+            cart.push({ id, name, price });
+            updateCart();
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartItems = document.getElementById(&#039;cartItems&#039;);
+            const cartTotal = document.getElementById(&#039;cartTotal&#039;);
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = &#039;Empty&#039;;
+                cartTotal.textContent = &#039;0&#039;;
+                return;
+            }
+
+            let html = &#039;&#039;;
+            let total = 0;
+            
+            cart.forEach(item =&gt; {
+                html += `&lt;div&gt;${item.name} - $${item.price}&lt;/div&gt;`;
+                total += item.price;
+            });
+            
+            cartItems.innerHTML = html;
+            cartTotal.textContent = total;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            </div></div>
+      <div data-filename="layout" data-linenumber="61" data-visual-selector-id="layout61" class="category-section">
+        <h2 data-filename="layout" data-linenumber="62" data-visual-selector-id="layout62" class="category-title">💾 Local Storage</h2>
+      
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">Local Storage</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">Understanding Local Storage</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## What is Local Storage?<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Local Storage is like a mini database in your browser. It stores data even after you close the page!<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Local Storage vs Firestore<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">**Local Storage:**<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Works offline<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ No setup needed<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Instant (no internet)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ❌ Only on that device<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ❌ Limited to ~5MB<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ❌ Not secure<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">**Firestore:**<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Works on all devices<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Unlimited storage<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Secure<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ✅ Real-time sync<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ❌ Needs internet<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- ❌ Requires setup<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## When to Use Local Storage<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- User preferences (theme, language)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Temporary form data<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Shopping cart (before checkout)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- App settings<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Game scores (local only)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## When to Use Firestore<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- User accounts<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Social media posts<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Any data that needs to sync<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- Data to share between users
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Local Storage Basics - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Save data
+localStorage.setItem(&#039;username&#039;, &#039;John&#039;);
+localStorage.setItem(&#039;score&#039;, &#039;100&#039;);
+
+// Get data
+const username = localStorage.getItem(&#039;username&#039;);
+console.log(username); // &#039;John&#039;
+
+// Remove data
+localStorage.removeItem(&#039;score&#039;);
+
+// Clear everything
+localStorage.clear();</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Storing Objects (JSON) - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Can&#039;t store objects directly - must convert to JSON
+
+// Save object
+const user = {
+    name: &#039;John&#039;,
+    age: 25,
+    email: &#039;john@example.com&#039;
+};
+localStorage.setItem(&#039;user&#039;, JSON.stringify(user));
+
+// Get object back
+const savedUser = JSON.parse(localStorage.getItem(&#039;user&#039;));
+console.log(savedUser.name); // &#039;John&#039;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Dark Mode Toggle Example - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;button onclick=&quot;toggleDarkMode()&quot;&gt;Toggle Dark Mode&lt;/button&gt;
+
+&lt;script&gt;
+// Check saved preference on load
+if (localStorage.getItem(&#039;darkMode&#039;) === &#039;true&#039;) {
+    document.body.style.background = &#039;#333&#039;;
+    document.body.style.color = &#039;white&#039;;
+}
+
+function toggleDarkMode() {
+    const isDark = document.body.style.background === &#039;rgb(51, 51, 51)&#039;;
+    
+    if (isDark) {
+        document.body.style.background = &#039;white&#039;;
+        document.body.style.color = &#039;black&#039;;
+        localStorage.setItem(&#039;darkMode&#039;, &#039;false&#039;);
+    } else {
+        document.body.style.background = &#039;#333&#039;;
+        document.body.style.color = &#039;white&#039;;
+        localStorage.setItem(&#039;darkMode&#039;, &#039;true&#039;);
+    }
+}
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Shopping Cart with Local Storage - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;div id=&quot;cart&quot;&gt;&lt;/div&gt;
+&lt;button onclick=&quot;addItem(&#039;Apple&#039;, 1.99)&quot;&gt;Add Apple&lt;/button&gt;
+&lt;button onclick=&quot;addItem(&#039;Banana&#039;, 0.99)&quot;&gt;Add Banana&lt;/button&gt;
+
+&lt;script&gt;
+function addItem(name, price) {
+    // Get existing cart or create new one
+    let cart = JSON.parse(localStorage.getItem(&#039;cart&#039;)) || [];
+    
+    // Add item
+    cart.push({ name, price });
+    
+    // Save back to localStorage
+    localStorage.setItem(&#039;cart&#039;, JSON.stringify(cart));
+    
+    displayCart();
+}
+
+function displayCart() {
+    const cart = JSON.parse(localStorage.getItem(&#039;cart&#039;)) || [];
+    const cartDiv = document.getElementById(&#039;cart&#039;);
+    
+    if (cart.length === 0) {
+        cartDiv.innerHTML = &#039;Cart is empty&#039;;
+        return;
+    }
+    
+    let html = &#039;&lt;h3&gt;Cart:&lt;/h3&gt;&#039;;
+    let total = 0;
+    
+    cart.forEach(item =&gt; {
+        html += `&lt;div&gt;${item.name} - $${item.price}&lt;/div&gt;`;
+        total += item.price;
+    });
+    
+    html += `&lt;strong&gt;Total: $${total.toFixed(2)}&lt;/strong&gt;`;
+    cartDiv.innerHTML = html;
+}
+
+// Display cart on page load
+displayCart();
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            </div></div>
+      <div data-filename="layout" data-linenumber="61" data-visual-selector-id="layout61" class="category-section">
+        <h2 data-filename="layout" data-linenumber="62" data-visual-selector-id="layout62" class="category-title">💻 HTML & JS Basics</h2>
+      
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">HTML & JS Basics</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">HTML Basics for Apps</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## Essential HTML for Web Apps<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">You don't need to know everything about HTML - just these key elements for building apps!<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Basic Structure<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Every HTML page needs:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">1. DOCTYPE declaration<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">2. html, head, and body tags<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">3. A title<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Common Elements You'll Use<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<div>`: Container for grouping content<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<h1>` to `<h6>`: Headings<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<p>`: Paragraphs<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<button>`: Clickable buttons<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<input>`: Text input fields<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<textarea>`: Multi-line text input<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<img>`: Images<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">- `<a>`: Links
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Basic HTML Template - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My App&lt;/title&gt;
+    &lt;style&gt;
+        /* Your CSS here */
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My App&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph&lt;/p&gt;
+    &lt;button&gt;Click Me&lt;/button&gt;
+
+    &lt;script&gt;
+        // Your JavaScript here
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Forms and Inputs - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!-- Text input --&gt;
+&lt;input type=&quot;text&quot; id=&quot;nameInput&quot; placeholder=&quot;Enter your name&quot;&gt;
+
+&lt;!-- Number input --&gt;
+&lt;input type=&quot;number&quot; id=&quot;ageInput&quot; placeholder=&quot;Enter age&quot;&gt;
+
+&lt;!-- Email input --&gt;
+&lt;input type=&quot;email&quot; id=&quot;emailInput&quot; placeholder=&quot;Email&quot;&gt;
+
+&lt;!-- Password input --&gt;
+&lt;input type=&quot;password&quot; id=&quot;passwordInput&quot;&gt;
+
+&lt;!-- Multi-line text --&gt;
+&lt;textarea id=&quot;messageInput&quot; rows=&quot;5&quot; cols=&quot;40&quot;&gt;&lt;/textarea&gt;
+
+&lt;!-- Checkbox --&gt;
+&lt;input type=&quot;checkbox&quot; id=&quot;agreeCheck&quot;&gt; I agree
+
+&lt;!-- Radio buttons --&gt;
+&lt;input type=&quot;radio&quot; name=&quot;color&quot; value=&quot;red&quot;&gt; Red
+&lt;input type=&quot;radio&quot; name=&quot;color&quot; value=&quot;blue&quot;&gt; Blue
+
+&lt;!-- Dropdown --&gt;
+&lt;select id=&quot;countrySelect&quot;&gt;
+    &lt;option value=&quot;usa&quot;&gt;USA&lt;/option&gt;
+    &lt;option value=&quot;uk&quot;&gt;UK&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Button --&gt;
+&lt;button onclick=&quot;handleSubmit()&quot;&gt;Submit&lt;/button&gt;</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Getting Values from Inputs - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Get value from text input
+const name = document.getElementById(&#039;nameInput&#039;).value;
+
+// Get value from dropdown
+const country = document.getElementById(&#039;countrySelect&#039;).value;
+
+// Check if checkbox is checked
+const isChecked = document.getElementById(&#039;agreeCheck&#039;).checked;
+
+// Get selected radio button
+const radioButtons = document.getElementsByName(&#039;color&#039;);
+let selectedColor;
+for (const radio of radioButtons) {
+    if (radio.checked) {
+        selectedColor = radio.value;
+        break;
+    }
+}
+
+console.log(&#039;Name:&#039;, name);
+console.log(&#039;Country:&#039;, country);
+console.log(&#039;Agreed:&#039;, isChecked);
+console.log(&#039;Color:&#039;, selectedColor);</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Complete Form Example - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h2&gt;Registration Form&lt;/h2&gt;
+    
+    &lt;div&gt;
+        &lt;label&gt;Name:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;
+    &lt;/div&gt;
+    
+    &lt;div&gt;
+        &lt;label&gt;Email:&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot;&gt;
+    &lt;/div&gt;
+    
+    &lt;div&gt;
+        &lt;label&gt;Age:&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;age&quot;&gt;
+    &lt;/div&gt;
+    
+    &lt;div&gt;
+        &lt;label&gt;Bio:&lt;/label&gt;
+        &lt;textarea id=&quot;bio&quot; rows=&quot;4&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+    
+    &lt;button onclick=&quot;submitForm()&quot;&gt;Register&lt;/button&gt;
+    
+    &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+
+    &lt;script&gt;
+        function submitForm() {
+            const name = document.getElementById(&#039;name&#039;).value;
+            const email = document.getElementById(&#039;email&#039;).value;
+            const age = document.getElementById(&#039;age&#039;).value;
+            const bio = document.getElementById(&#039;bio&#039;).value;
+            
+            // Validation
+            if (!name || !email || !age) {
+                alert(&#039;Please fill all fields!&#039;);
+                return;
+            }
+            
+            // Display result
+            document.getElementById(&#039;result&#039;).innerHTML = `
+                &lt;h3&gt;Registration Successful!&lt;/h3&gt;
+                &lt;p&gt;&lt;strong&gt;Name:&lt;/strong&gt; ${name}&lt;/p&gt;
+                &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; ${email}&lt;/p&gt;
+                &lt;p&gt;&lt;strong&gt;Age:&lt;/strong&gt; ${age}&lt;/p&gt;
+                &lt;p&gt;&lt;strong&gt;Bio:&lt;/strong&gt; ${bio}&lt;/p&gt;
+            `;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+            </div>
+        <div data-filename="layout" data-linenumber="67" data-visual-selector-id="layout67" class="tutorial-card">
+          <span data-filename="layout" data-linenumber="68" data-visual-selector-id="layout68" class="badge">HTML & JS Basics</span>
+          <h3 data-filename="layout" data-linenumber="69" data-visual-selector-id="layout69">JavaScript Essentials</h3>
+          <div data-filename="layout" data-linenumber="70" data-visual-selector-id="layout70" class="tutorial-content">
+            ## JavaScript Basics You Need<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">JavaScript makes your page interactive. Here are the essentials:<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Variables<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Think of variables as boxes that hold values.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Functions<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Functions are reusable blocks of code.<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## Events<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Things that happen on your page (clicks, typing, etc.)<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">## DOM Manipulation<br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71"><br data-filename="layout" data-linenumber="71" data-visual-selector-id="layout71">Changing your page content with JavaScript.
+          </div>
+        
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Variables - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// let - for values that change
+let score = 0;
+score = 10; // Can change
+
+// const - for values that don&#039;t change
+const name = &#039;John&#039;;
+// name = &#039;Jane&#039;; // Error! Can&#039;t change
+
+// Types of values
+let age = 25;                    // Number
+let username = &#039;john123&#039;;         // String
+let isLoggedIn = true;           // Boolean
+let colors = [&#039;red&#039;, &#039;blue&#039;];    // Array
+let user = {                     // Object
+    name: &#039;John&#039;,
+    age: 25
+};</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Functions - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Basic function
+function sayHello() {
+    console.log(&#039;Hello!&#039;);
+}
+sayHello(); // Call the function
+
+// Function with parameters
+function greet(name) {
+    console.log(&#039;Hello &#039; + name);
+}
+greet(&#039;John&#039;); // Hello John
+
+// Function that returns a value
+function add(a, b) {
+    return a + b;
+}
+const result = add(5, 3);
+console.log(result); // 8
+
+// Arrow function (modern way)
+const multiply = (a, b) =&gt; a * b;
+console.log(multiply(4, 5)); // 20</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">If Statements - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">const age = 18;
+
+// Simple if
+if (age &gt;= 18) {
+    console.log(&#039;You are an adult&#039;);
+}
+
+// if...else
+if (age &gt;= 18) {
+    console.log(&#039;Adult&#039;);
+} else {
+    console.log(&#039;Minor&#039;);
+}
+
+// Multiple conditions
+if (age &lt; 13) {
+    console.log(&#039;Child&#039;);
+} else if (age &lt; 18) {
+    console.log(&#039;Teenager&#039;);
+} else {
+    console.log(&#039;Adult&#039;);
+}
+
+// Comparison operators
+if (age == 18) { }  // Equal (loose)
+if (age === 18) { } // Equal (strict)
+if (age != 18) { }  // Not equal
+if (age &gt; 18) { }   // Greater than
+if (age &gt;= 18) { }  // Greater or equal
+if (age &lt; 18) { }   // Less than</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">Loops - javascript</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">// Loop through array
+const fruits = [&#039;apple&#039;, &#039;banana&#039;, &#039;orange&#039;];
+
+for (let i = 0; i &lt; fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+// Modern forEach
+fruits.forEach((fruit) =&gt; {
+    console.log(fruit);
+});
+
+// While loop
+let count = 0;
+while (count &lt; 5) {
+    console.log(count);
+    count++;
+}</code></pre>
+              </div>
+            </div>
+            
+            <div data-filename="layout" data-linenumber="78" data-visual-selector-id="layout78" style="margin-top: 20px;">
+              <div data-filename="layout" data-linenumber="79" data-visual-selector-id="layout79" class="code-title">DOM Manipulation - html</div>
+              <div data-filename="layout" data-linenumber="80" data-visual-selector-id="layout80" class="code-block">
+                <pre data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81"><code data-filename="layout" data-linenumber="81" data-visual-selector-id="layout81">&lt;div id=&quot;myDiv&quot;&gt;Original text&lt;/div&gt;
+&lt;button onclick=&quot;changeText()&quot;&gt;Change Text&lt;/button&gt;
+&lt;button onclick=&quot;addElement()&quot;&gt;Add Element&lt;/button&gt;
+
+&lt;script&gt;
+// Get element
+const div = document.getElementById(&#039;myDiv&#039;);
+
+// Change text
+function changeText() {
+    div.innerHTML = &#039;New text!&#039;;
+}
+
+// Change style
+div.style.color = &#039;red&#039;;
+div.style.fontSize = &#039;20px&#039;;
+
+// Add element
+function addElement() {
+    const newParagraph = document.createElement(&#039;p&#039;);
+    newParagraph.innerHTML = &#039;I am new!&#039;;
+    document.body.appendChild(newParagraph);
+}
+
+// Remove element
+div.remove();
+
+// Add class
+div.classList.add(&#039;highlight&#039;);
+
+// Remove class
+div.classList.remove(&#039;highlight&#039;);
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+            </div></div>
+        </div>
+    </div>
+
+    <div data-filename="layout" data-linenumber="360" data-visual-selector-id="layout360" class="footer">
+        <h3 data-filename="layout" data-linenumber="361" data-visual-selector-id="layout361">📚 Firebase Academy</h3>
+        <p data-filename="layout" data-linenumber="362" data-visual-selector-id="layout362">Keep learning, keep building! This is your offline copy.</p>
+        <p data-filename="layout" data-linenumber="363" data-visual-selector-id="layout363" style="margin-top: 10px; font-size: 0.9em;">All tutorials and code examples included</p>
+    </div>
+
+    <script data-filename="layout" data-linenumber="366" data-visual-selector-id="layout366">
+        function copyCode(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        function explainCode() {
+            const code = document.getElementById('codeInput').value;
+            const question = document.getElementById('questionInput').value;
+            const responseDiv = document.getElementById('aiResponse');
+            const contentDiv = document.getElementById('responseContent');
+
+            if (!code && !question) {
+                alert('Please paste some code or ask a question!');
+                return;
+            }
+
+            responseDiv.classList.add('show');
+            contentDiv.innerHTML = '<p data-filename="layout" data-linenumber="390" data-visual-selector-id="layout390" style="text-align: center;">⏳ Analyzing your code...</p>';
+
+            setTimeout(() => {
+                let explanation = '<div data-filename="layout" data-linenumber="393" data-visual-selector-id="layout393" style="line-height: 1.8;">';
+                
+                if (code.includes('firebase') || code.includes('firestore')) {
+                    explanation += '<h4 data-filename="layout" data-linenumber="396" data-visual-selector-id="layout396">🔥 Firebase Code Detected!</h4>';
+                    explanation += '<p data-filename="layout" data-linenumber="397" data-visual-selector-id="layout397"><strong data-filename="layout" data-linenumber="397" data-visual-selector-id="layout397">This appears to be Firebase code.</strong> Here are key things to understand:</p>';
+                    explanation += '<ul data-filename="layout" data-linenumber="398" data-visual-selector-id="layout398" style="margin-left: 20px;">';
+                    explanation += '<li data-filename="layout" data-linenumber="399" data-visual-selector-id="layout399"><strong data-filename="layout" data-linenumber="399" data-visual-selector-id="layout399">import { initializeApp }</strong> - This initializes your Firebase app with your config</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="400" data-visual-selector-id="layout400"><strong data-filename="layout" data-linenumber="400" data-visual-selector-id="layout400">getFirestore()</strong> - Gets your Firestore database instance</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="401" data-visual-selector-id="layout401"><strong data-filename="layout" data-linenumber="401" data-visual-selector-id="layout401">collection()</strong> - References a collection in Firestore</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="402" data-visual-selector-id="layout402"><strong data-filename="layout" data-linenumber="402" data-visual-selector-id="layout402">addDoc()</strong> - Adds a new document to a collection</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="403" data-visual-selector-id="layout403"><strong data-filename="layout" data-linenumber="403" data-visual-selector-id="layout403">getDocs()</strong> - Gets all documents from a collection</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="404" data-visual-selector-id="layout404"><strong data-filename="layout" data-linenumber="404" data-visual-selector-id="layout404">doc()</strong> - References a specific document</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="405" data-visual-selector-id="layout405"><strong data-filename="layout" data-linenumber="405" data-visual-selector-id="layout405">updateDoc()</strong> - Updates a document</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="406" data-visual-selector-id="layout406"><strong data-filename="layout" data-linenumber="406" data-visual-selector-id="layout406">deleteDoc()</strong> - Deletes a document</li>';
+                    explanation += '</ul>';
+                }
+                
+                if (code.includes('auth') || code.includes('signIn') || code.includes('createUser')) {
+                    explanation += '<h4 data-filename="layout" data-linenumber="411" data-visual-selector-id="layout411">🔐 Authentication Code Detected!</h4>';
+                    explanation += '<p data-filename="layout" data-linenumber="412" data-visual-selector-id="layout412">This code handles user authentication. Key functions:</p>';
+                    explanation += '<ul data-filename="layout" data-linenumber="413" data-visual-selector-id="layout413" style="margin-left: 20px;">';
+                    explanation += '<li data-filename="layout" data-linenumber="414" data-visual-selector-id="layout414"><strong data-filename="layout" data-linenumber="414" data-visual-selector-id="layout414">getAuth()</strong> - Gets the authentication instance</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="415" data-visual-selector-id="layout415"><strong data-filename="layout" data-linenumber="415" data-visual-selector-id="layout415">createUserWithEmailAndPassword()</strong> - Creates a new user</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="416" data-visual-selector-id="layout416"><strong data-filename="layout" data-linenumber="416" data-visual-selector-id="layout416">signInWithEmailAndPassword()</strong> - Signs in existing user</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="417" data-visual-selector-id="layout417"><strong data-filename="layout" data-linenumber="417" data-visual-selector-id="layout417">signOut()</strong> - Logs user out</li>';
+                    explanation += '<li data-filename="layout" data-linenumber="418" data-visual-selector-id="layout418"><strong data-filename="layout" data-linenumber="418" data-visual-selector-id="layout418">onAuthStateChanged()</strong> - Listens for auth changes</li>';
+                    explanation += '</ul>';
+                }
+
+                if (question) {
+                    explanation += '<h4 data-filename="layout" data-linenumber="423" data-visual-selector-id="layout423">❓ Your Question: ' + question + '</h4>';
+                    explanation += '<p data-filename="layout" data-linenumber="424" data-visual-selector-id="layout424">For detailed answers, refer to the tutorials below or use the online version with live AI!</p>';
+                }
+
+                explanation += '<p data-filename="layout" data-linenumber="427" data-visual-selector-id="layout427" style="margin-top: 20px;"><strong data-filename='layout' data-linenumber='427' data-visual-selector-id='layout427'>💡 Pro Tip:</strong> For live AI explanations and real-time help, use the online version of Firebase Academy!</p>';
+                explanation += '</div>';
+
+                contentDiv.innerHTML = explanation;
+            }, 1000);
+        }
+
+        function searchTutorials() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const tutorials = document.querySelectorAll('.tutorial-card');
+            
+            tutorials.forEach(tutorial => {
+                const text = tutorial.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    tutorial.style.display = 'block';
+                } else {
+                    tutorial.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                if (!block.querySelector('.copy-btn')) {
+                    const btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.textContent = 'Copy';
+                    btn.onclick = function() { copyCode(this); };
+                    block.appendChild(btn);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
