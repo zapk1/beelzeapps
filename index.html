@@ -202,9 +202,49 @@
     <div id="app"></div>
     <div id="downloadModal"></div>
     
-    <script>
+   <script>
         // ========== FIREBASE REALTIME DATABASE ==========
         const FIREBASE_DB_URL = 'https://streamx-a4099-default-rtdb.firebaseio.com';
+        
+        // ========== DAILY COLOR SYSTEM ==========
+        function getDailyColors() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            const colorSets = [
+                { primary: '#059669', secondary: '#0d9488', light: '#d1fae5' }, // Green/Teal
+                { primary: '#3b82f6', secondary: '#2563eb', light: '#dbeafe' }, // Blue
+                { primary: '#8b5cf6', secondary: '#7c3aed', light: '#ede9fe' }, // Purple
+                { primary: '#ec4899', secondary: '#db2777', light: '#fce7f3' }, // Pink
+                { primary: '#f59e0b', secondary: '#d97706', light: '#fef3c7' }, // Orange
+                { primary: '#ef4444', secondary: '#dc2626', light: '#fee2e2' }, // Red
+                { primary: '#14b8a6', secondary: '#0d9488', light: '#ccfbf1' }  // Cyan
+            ];
+            return colorSets[dayOfYear % colorSets.length];
+        }
+        
+        const dailyColors = getDailyColors();
+        
+        // Apply colors dynamically
+        function applyDailyColors() {
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .btn, .cat-btn.active, .download-btn { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
+                .featured { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
+                .profile-avatar, .nav-avatar { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
+                .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: ${dailyColors.primary} !important; }
+                .cat-option.selected { border-color: ${dailyColors.primary} !important; background: ${dailyColors.light} !important; }
+                .nav-item.active { color: ${dailyColors.primary} !important; }
+                .detail-author, .auth-link, .cat-option.selected span, .cat-option.selected svg { color: ${dailyColors.primary} !important; }
+                .app-badge { background: ${dailyColors.light} !important; }
+                .app-badge svg { color: ${dailyColors.primary} !important; }
+                .detail-cat { background: ${dailyColors.light} !important; color: ${dailyColors.primary} !important; }
+                .progress-fill { background: linear-gradient(90deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
+                .file-selected { background: ${dailyColors.light} !important; }
+                .file-selected svg { color: ${dailyColors.primary} !important; }
+                .spinner { border-top-color: ${dailyColors.primary} !important; }
+            `;
+            document.head.appendChild(style);
+        }
         
         // ========== ICONS ==========
         const icons = {
@@ -229,8 +269,9 @@
             external: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>`
         };
         
-        // ========== DEFAULT APPS (with working placeholder icons) ==========
+        // ========== DEFAULT APPS ==========
         const defaultApps = [
+             { id: 'default_15', title: 'BeelzeFlow', shortDesc: ' App made for  Scheduling Daily Tasks and Routines by Beelze Apps', description: 'This is the app made for  Scheduling Daily Tasks and Routines by Beelze Apps. ', category: 'app', downloadType: 'apk', downloadUrl: ' https://github.com/zapk1/beelzeapps/releases/download/V2.0/app-debug.apk '  , iconUrl: 'https://i.postimg.cc/ZqVbgNM6/blue-letter-made-wood.jpg', author: 'Beelze Apps Team ', downloads: 322, size: '6 MB', version: 'V1.0', isDefault: true, featured: true },
             { id: 'default_1', title: 'WhatsApp Mod', shortDesc: 'Enhanced WhatsApp with extra features', description: 'WhatsApp Mod with anti-delete messages, hide online status, download status, and many more features.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/733/733585.png', author: 'ModDev Team', downloads: 15420, size: '45 MB', version: '2.24.1', isDefault: true },
             { id: 'default_2', title: 'Spotify Premium', shortDesc: 'Unlock all Spotify features', description: 'Spotify with premium features unlocked. Ad-free music, unlimited skips, and offline downloads.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2111/2111624.png', author: 'Premium Mods', downloads: 28930, size: '32 MB', version: '8.9.0', isDefault: true },
             { id: 'default_3', title: 'Instagram Pro', shortDesc: 'Instagram with download features', description: 'Download photos, videos, stories, and reels directly.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2111/2111463.png', author: 'InstaTeam', downloads: 42100, size: '58 MB', version: '4.2.0', isDefault: true },
@@ -254,7 +295,6 @@
         let uploadProgress = 0;
         let uploadStatus = '';
         
-        // Upload state
         let uploadFormData = { title: '', shortDesc: '', description: '', version: '1.0', tags: '', pwaUrl: '' };
         let uploadCategory = 'app';
         let uploadDownloadType = 'apk';
@@ -270,7 +310,16 @@
             return all.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
         }
         
-        // ========== FIREBASE FUNCTIONS ==========
+        function getFeaturedApp() {
+            const allApps = getAllApps();
+            const featuredApps = allApps.filter(a => a.featured || a.isDefault);
+            if (featuredApps.length === 0) return allApps[0];
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            return featuredApps[dayOfYear % featuredApps.length];
+        }
+        
+        // ========== FIREBASE ==========
         async function loadAppsFromDB() {
             try {
                 const response = await fetch(`${FIREBASE_DB_URL}/beelzeApps.json`);
@@ -392,7 +441,6 @@
             return (title || 'A').charAt(0).toUpperCase();
         }
         
-        // ========== RENDER ICON (with fallback) ==========
         function renderAppIcon(app, size = 80, rounded = 16) {
             const initials = getInitials(app.title);
             const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899'];
@@ -405,13 +453,28 @@
             return `<div style="width:${size}px;height:${size}px;border-radius:${rounded}px;background:${bgColor};display:flex;align-items:center;justify-content:center;color:white;font-size:${size/2.5}px;font-weight:bold;">${initials}</div>`;
         }
         
-        // ========== DOWNLOAD ==========
+        // ========== SCREENSHOT VIEWER ==========
+        function viewScreenshot(imageUrl) {
+            const modal = document.createElement('div');
+            modal.id = 'screenshotModal';
+            modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px;';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div style="position:relative;max-width:100%;max-height:100%;">
+                    <img src="${imageUrl}" style="max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                    <button onclick="document.getElementById('screenshotModal').remove()" style="position:absolute;top:-12px;right:-12px;width:40px;height:40px;background:white;border:none;border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);">${icons.x}</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // ========== DOWNLOAD - FIXED ==========
         async function downloadApp(id) {
             const allApps = getAllApps();
             const app = allApps.find(a => a.id === id);
             if (!app) return;
             
-            // Update count for DB apps
+            // Update download count for DB apps
             if (!app.isDefault && app.id) {
                 const newCount = (app.downloads || 0) + 1;
                 try {
@@ -422,19 +485,25 @@
                 } catch (e) { console.error(e); }
             }
             
-            // PWA
+            // Handle PWA apps
             if (app.downloadType === 'pwa' && app.downloadUrl) {
                 window.open(app.downloadUrl, '_blank');
                 return;
             }
             
-            // Default demo apps
-            if (app.isDefault) {
-                alert('This is a demo app. Upload your own apps to enable real downloads!');
+            // Handle default apps with downloadUrl
+            if (app.isDefault && app.downloadUrl) {
+                window.open(app.downloadUrl, '_blank');
                 return;
             }
             
-            // Real file download
+            // Handle default apps without downloadUrl (demo)
+            if (app.isDefault && !app.downloadUrl) {
+                alert('This is a demo app. The download link is not available.');
+                return;
+            }
+            
+            // Handle real uploaded files (base64)
             if (app.fileBase64) {
                 showDownloadModal(app.title);
                 try {
@@ -513,7 +582,7 @@
                 return matchesCat && matchesSearch;
             });
             
-            const featured = allApps[0];
+            const featured = getFeaturedApp();
             
             return `
                 <header class="header"><div class="header-content">
@@ -607,8 +676,8 @@
                             <div class="stat"><div class="stat-val">${app.version || '1.0'}</div><div class="stat-label">Version</div></div>
                         </div>
                         <button class="download-btn" onclick="downloadApp('${app.id}')">
-                            ${app.downloadType === 'pwa' ? icons.external : icons.download}
-                            ${app.downloadType === 'pwa' ? 'Open App' : 'Download'}
+                            ${app.downloadType === 'pwa' || (app.isDefault && app.downloadUrl) ? icons.external : icons.download}
+                            ${app.downloadType === 'pwa' || (app.isDefault && app.downloadUrl) ? 'Open/Download' : 'Download'}
                         </button>
                         <p style="text-align:center;font-size:12px;color:#6b7280;margin-top:12px;">${getDownloadTypeLabel(app.downloadType)}</p>
                     </div>
@@ -616,7 +685,7 @@
                     ${app.screenshots && app.screenshots.length > 0 ? `
                         <div style="margin-bottom:24px;">
                             <h3 class="section-title">Screenshots</h3>
-                            <div class="screenshots">${app.screenshots.map(s => `<img src="${s}" class="screenshot" alt="Screenshot" onerror="this.style.display='none'">`).join('')}</div>
+                            <div class="screenshots">${app.screenshots.map(s => `<img src="${s}" class="screenshot" alt="Screenshot" onclick="viewScreenshot('${s}')" style="cursor:pointer;" onerror="this.style.display='none'">`).join('')}</div>
                         </div>
                     ` : ''}
                     
@@ -759,7 +828,7 @@
                     
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
                         <h3 style="font-size:18px;font-weight:600;">My Uploads</h3>
-                        <a href__="#" onclick="navigateTo('upload');return false;" style="color:#059669;font-weight:500;">${icons.plus} Add</a>
+                        <a href__="#" onclick="navigateTo('upload');return false;" style="color:${dailyColors.primary};font-weight:500;">${icons.plus} Add</a>
                     </div>
                     
                     ${myApps.length > 0 ? myApps.map(app => `
@@ -906,8 +975,16 @@
             document.getElementById('app').innerHTML = html;
         }
         
+        // Initialize
+        applyDailyColors();
         render();
         loadAppsFromDB();
+        
+        
+        
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js");
+        }
     </script>
 </body>
 </html>
