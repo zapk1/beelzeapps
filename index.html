@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-
-<link rel="manifest" href="manifest.json">
-     <meta name="theme-color" content="#2196f3">
-
-    <link rel="icon" href="https://i.postimg.cc/gJhjVfvM/Logo-for-Dark-Master-Store.png" type="image/png">
-     <link rel="stylesheet" href="style.css">
-
-
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beelze Apps - Alternative App Store</title>
+    <link rel="manifest" href__="manifest.json">
+    <meta name="theme-color" content="#2196f3">
+    <link rel="icon" href="https://i.postimg.cc/x8SV2H8r/IMG-3512.png" type="image/png">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f9fafb; color: #111827; min-height: 100vh; }
@@ -23,13 +15,15 @@
         .header { background: white; padding: 16px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 50; }
         .header-content { max-width: 768px; margin: 0 auto; }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .logo { font-size: 24px; font-weight: bold; background: linear-gradient(to right, #059669, #0d9488); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .logo { font-size: 24px; font-weight: bold; transition: all 0.3s; }
         .logo-sub { font-size: 12px; color: #6b7280; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: #059669; color: white; border: none; border-radius: 12px; font-weight: 500; cursor: pointer; font-size: 14px; }
-        .btn:hover { background: #047857; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: #059669; color: white; border: none; border-radius: 12px; font-weight: 500; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .btn:hover { background: #047857; transform: scale(1.02); }
         .btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .btn-outline { background: white; color: #374151; border: 1px solid #e5e7eb; }
         .btn-outline:hover { background: #f9fafb; }
+        .btn-danger { background: #ef4444; }
+        .btn-danger:hover { background: #dc2626; }
         
         .search-box { position: relative; }
         .search-box svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #9ca3af; }
@@ -37,13 +31,14 @@
         .search-input:focus { background: white; box-shadow: 0 0 0 2px #059669; }
         
         .categories { display: flex; gap: 8px; padding: 16px; max-width: 768px; margin: 0 auto; overflow-x: auto; }
-        .cat-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #f3f4f6; border: none; border-radius: 50px; font-weight: 500; font-size: 14px; color: #4b5563; cursor: pointer; white-space: nowrap; }
+        .cat-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: #f3f4f6; border: none; border-radius: 50px; font-weight: 500; font-size: 14px; color: #4b5563; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
         .cat-btn.active { background: #059669; color: white; box-shadow: 0 4px 12px rgba(5,150,105,0.3); }
         .cat-btn svg { width: 16px; height: 16px; }
         
         .main { max-width: 768px; margin: 0 auto; padding: 0 16px 100px; }
         
-        .featured { background: linear-gradient(135deg, #059669, #0d9488); border-radius: 24px; padding: 24px; color: white; margin-bottom: 24px; box-shadow: 0 10px 40px rgba(5,150,105,0.3); cursor: pointer; }
+        .featured { background: linear-gradient(135deg, #059669, #0d9488); border-radius: 24px; padding: 24px; color: white; margin-bottom: 24px; box-shadow: 0 10px 40px rgba(5,150,105,0.3); cursor: pointer; transition: transform 0.2s; }
+        .featured:hover { transform: translateY(-4px); }
         .featured-content { display: flex; gap: 20px; }
         .featured-icon { width: 96px; height: 96px; border-radius: 20px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: rgba(255,255,255,0.2); }
         .featured-badge { display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.2); border-radius: 50px; font-size: 12px; margin-bottom: 8px; }
@@ -64,9 +59,9 @@
         .app-stats { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #6b7280; }
         .app-stats svg { width: 12px; height: 12px; }
         
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 8px 0 env(safe-area-inset-bottom); z-index: 50; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 8px 0; z-index: 50; }
         .nav-content { max-width: 768px; margin: 0 auto; display: flex; justify-content: space-around; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 24px; color: #6b7280; text-decoration: none; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: none; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 24px; color: #6b7280; text-decoration: none; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: none; transition: color 0.2s; }
         .nav-item.active { color: #059669; }
         .nav-item svg { width: 24px; height: 24px; }
         .nav-avatar { width: 24px; height: 24px; background: linear-gradient(135deg, #34d399, #14b8a6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold; }
@@ -89,199 +84,191 @@
         .stat-val { font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
         .stat-val svg { width: 16px; height: 16px; }
         .stat-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
-        .download-btn { width: 100%; padding: 18px; background: #059669; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
-        .download-btn:hover { background: #047857; }
+        .download-btn { width: 100%; padding: 18px; background: #059669; color: white; border: none; border-radius: 16px; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 10px 30px rgba(5,150,105,0.3); transition: all 0.2s; }
+        .download-btn:hover { background: #047857; transform: scale(1.02); }
         .download-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .download-btn svg { width: 20px; height: 20px; }
         
         .screenshots { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; }
-        .screenshot { width: 180px; height: auto; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); flex-shrink: 0; background: #f3f4f6; }
+        .screenshot { height: 280px; width: auto; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); flex-shrink: 0; background: #f3f4f6; cursor: pointer; transition: transform 0.2s; }
+        .screenshot:hover { transform: scale(1.05); }
         
         .section { background: white; border-radius: 24px; padding: 24px; margin-bottom: 24px; border: 1px solid #e5e7eb; }
         .section-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
         .section-text { color: #4b5563; line-height: 1.6; white-space: pre-wrap; }
         
-        .dev-info { display: flex; align-items: center; gap: 12px; }
-        .dev-avatar { width: 40px; height: 40px; background: #d1fae5; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .dev-avatar svg { width: 20px; height: 20px; color: #059669; }
-        .dev-name { font-weight: 500; }
-        .dev-email { font-size: 14px; color: #6b7280; }
+        .reviews-section { background: white; border-radius: 24px; padding: 24px; margin-bottom: 24px; border: 1px solid #e5e7eb; }
+        .review-card { padding: 16px; border-bottom: 1px solid #e5e7eb; }
+        .review-card:last-child { border-bottom: none; }
+        .review-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+        .review-author { font-weight: 600; font-size: 14px; }
+        .review-date { font-size: 12px; color: #6b7280; }
+        .review-stars { display: flex; gap: 2px; margin-bottom: 8px; }
+        .star { color: #fbbf24; font-size: 16px; }
+        .star.empty { color: #d1d5db; }
+        .review-text { font-size: 14px; color: #4b5563; line-height: 1.5; }
+        .review-actions { display: flex; gap: 8px; margin-top: 8px; }
         
-        .form-section { background: white; border-radius: 16px; padding: 24px; margin-bottom: 16px; border: 1px solid #e5e7eb; }
-        .form-label { display: block; font-weight: 600; margin-bottom: 12px; font-size: 16px; }
-        .form-label-sm { font-weight: normal; font-size: 14px; color: #374151; margin-bottom: 8px; display: block; }
-        .form-input { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 16px; outline: none; margin-bottom: 16px; }
-        .form-input:focus { border-color: #059669; box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
-        .form-textarea { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 16px; min-height: 120px; resize: vertical; outline: none; font-family: inherit; }
-        .form-textarea:focus { border-color: #059669; box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
-        .form-select { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 16px; outline: none; margin-bottom: 16px; background: white; }
-        
-        .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .cat-option { padding: 16px; border: 2px solid #e5e7eb; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.2s; }
-        .cat-option:hover { border-color: #a7f3d0; }
-        .cat-option.selected { border-color: #059669; background: #ecfdf5; }
-        .cat-option svg { width: 24px; height: 24px; margin: 0 auto 8px; color: #9ca3af; display: block; }
-        .cat-option.selected svg { color: #059669; }
-        .cat-option span { font-size: 14px; font-weight: 500; color: #4b5563; }
-        .cat-option.selected span { color: #059669; }
-        
-        .file-upload { padding: 32px; border: 2px dashed #d1d5db; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.2s; }
-        .file-upload:hover { border-color: #059669; }
-        .file-upload svg { width: 32px; height: 32px; color: #9ca3af; margin-bottom: 8px; }
-        .file-upload p { font-size: 14px; color: #6b7280; }
-        
-        .icon-upload-wrap { display: flex; align-items: center; gap: 16px; }
-        .icon-upload { width: 96px; height: 96px; border: 2px dashed #d1d5db; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
-        .icon-upload:hover { border-color: #059669; }
-        .icon-upload svg { width: 24px; height: 24px; color: #9ca3af; margin-bottom: 4px; }
-        .icon-upload span { font-size: 12px; color: #6b7280; }
-        .icon-preview { width: 96px; height: 96px; border-radius: 16px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .icon-tips { font-size: 14px; color: #6b7280; }
-        .icon-tips p { margin-bottom: 4px; }
-        
-        .ss-upload-wrap { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
-        .ss-upload { width: 120px; height: 200px; border: 2px dashed #d1d5db; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-        .ss-upload:hover { border-color: #059669; }
-        .ss-preview { width: 120px; height: 200px; border-radius: 12px; flex-shrink: 0; position: relative; }
-        .ss-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
-        .ss-remove { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; background: #ef4444; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .ss-remove svg { width: 14px; height: 14px; }
-        
-        .profile-card { background: white; border-radius: 24px; padding: 24px; margin-bottom: 24px; border: 1px solid #e5e7eb; }
-        .profile-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-        .profile-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, #34d399, #14b8a6); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; font-weight: bold; box-shadow: 0 10px 30px rgba(5,150,105,0.3); }
-        .profile-name { font-size: 20px; font-weight: bold; }
-        .profile-email { display: flex; align-items: center; gap: 8px; color: #6b7280; margin-top: 4px; font-size: 14px; }
-        .profile-email svg { width: 16px; height: 16px; }
-        .profile-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
-        .profile-stat { background: #f9fafb; border-radius: 12px; padding: 16px; text-align: center; }
-        .profile-stat-val { font-size: 24px; font-weight: bold; }
-        .profile-stat-label { font-size: 14px; color: #6b7280; }
+        .add-review { background: #f9fafb; padding: 16px; border-radius: 12px; margin-top: 16px; }
+        .star-input { display: flex; gap: 8px; margin-bottom: 12px; }
+        .star-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #d1d5db; transition: color 0.2s; }
+        .star-btn.active { color: #fbbf24; }
+        .star-btn:hover { color: #fbbf24; }
         
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
-        .modal-content { background: white; border-radius: 24px; padding: 32px; max-width: 400px; width: 100%; }
+        .modal-content { background: white; border-radius: 24px; padding: 32px; max-width: 400px; width: 100%; max-height: 90vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .modal-header h2 { font-size: 20px; font-weight: bold; }
         .modal-close { background: none; border: none; cursor: pointer; padding: 8px; }
         .modal-close svg { width: 24px; height: 24px; }
         
-        .auth-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
-        .auth-card { background: white; border-radius: 24px; padding: 32px; max-width: 400px; width: 100%; text-align: center; border: 1px solid #e5e7eb; }
-        .auth-icon { width: 64px; height: 64px; background: #d1fae5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
-        .auth-icon svg { width: 32px; height: 32px; color: #059669; }
-        .auth-title { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
-        .auth-desc { color: #6b7280; margin-bottom: 24px; }
-        .auth-link { display: block; margin-top: 16px; color: #059669; text-decoration: none; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .form-input { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 16px; outline: none; margin-bottom: 16px; }
+        .form-input:focus { border-color: #059669; box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
+        .form-textarea { width: 100%; padding: 12px 16px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 16px; min-height: 120px; resize: vertical; outline: none; font-family: inherit; margin-bottom: 16px; }
+        .form-textarea:focus { border-color: #059669; box-shadow: 0 0 0 2px rgba(5,150,105,0.2); }
         
-        .file-selected { display: flex; align-items: center; gap: 12px; padding: 16px; background: #ecfdf5; border-radius: 12px; }
-        .file-selected svg { width: 32px; height: 32px; color: #059669; }
-        .file-selected-info { flex: 1; min-width: 0; }
-        .file-selected-name { font-weight: 500; color: #111827; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .file-selected-size { font-size: 14px; color: #6b7280; }
-        .file-selected-remove { padding: 8px; background: none; border: none; cursor: pointer; color: #6b7280; }
-        .file-selected-remove:hover { color: #ef4444; }
+        .info-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .info-box.warning { background: #fef3c7; border-color: #fcd34d; }
+        .info-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .info-box p { font-size: 13px; color: #4b5563; line-height: 1.5; margin-bottom: 4px; }
+        .info-box strong { color: #111827; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .result-count { color: #6b7280; font-size: 14px; margin-bottom: 16px; }
+        .bank-card-placeholder { width: 100%; height: 200px; border: 2px dashed #d1d5db; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #f9fafb; margin-top: 12px; }
+        .bank-card-placeholder p { color: #6b7280; font-size: 14px; }
         
-        .progress-bar { width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-top: 12px; }
-        .progress-fill { height: 100%; background: #059669; transition: width 0.3s; }
-        .upload-status { text-align: center; margin-top: 8px; font-size: 14px; color: #6b7280; }
+        .error-msg { color: #ef4444; font-size: 13px; margin-top: -12px; margin-bottom: 12px; }
+        .success-msg { color: #059669; font-size: 13px; margin-bottom: 12px; }
+        
+        .spinner { width: 50px; height: 50px; border: 4px solid #e5e7eb; border-top-color: #059669; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
         .downloading { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 200; }
         .downloading-content { background: white; border-radius: 24px; padding: 32px; text-align: center; max-width: 300px; }
         .downloading-content h3 { margin: 16px 0 8px; font-size: 18px; }
         .downloading-content p { color: #6b7280; font-size: 14px; }
-        .spinner { width: 50px; height: 50px; border: 4px solid #e5e7eb; border-top-color: #059669; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        .placeholder-icon { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e5e7eb, #d1d5db); border-radius: inherit; font-size: 32px; font-weight: bold; color: #9ca3af; }
     </style>
 </head>
 <body>
     <div id="app"></div>
     <div id="downloadModal"></div>
     
-   <script>
+    <script>
         // ========== FIREBASE REALTIME DATABASE ==========
         const FIREBASE_DB_URL = 'https://streamx-a4099-default-rtdb.firebaseio.com';
         
-        // ========== DAILY COLOR SYSTEM ==========
+        // ========== HOURLY GRADIENT FOR APP NAME ==========
+        function getHourlyGradient() {
+            const hour = new Date().getHours();
+            const gradients = [
+                'linear-gradient(to right, #ef4444, #f97316)',
+                'linear-gradient(to right, #f59e0b, #eab308)',
+                'linear-gradient(to right, #84cc16, #22c55e)',
+                'linear-gradient(to right, #10b981, #059669)',
+                'linear-gradient(to right, #14b8a6, #06b6d4)',
+                'linear-gradient(to right, #0ea5e9, #3b82f6)',
+                'linear-gradient(to right, #6366f1, #8b5cf6)',
+                'linear-gradient(to right, #a855f7, #d946ef)',
+                'linear-gradient(to right, #ec4899, #f43f5e)',
+                'linear-gradient(to right, #f43f5e, #ef4444)',
+                'linear-gradient(to right, #fb923c, #fdba74)',
+                'linear-gradient(to right, #34d399, #6ee7b7)',
+                'linear-gradient(to right, #fde047, #facc15)',
+                'linear-gradient(to right, #c084fc, #e879f9)',
+                'linear-gradient(to right, #fb7185, #fda4af)',
+                'linear-gradient(to right, #67e8f9, #a5f3fc)',
+                'linear-gradient(to right, #fdba74, #fed7aa)',
+                'linear-gradient(to right, #86efac, #bbf7d0)',
+                'linear-gradient(to right, #fca5a5, #fecaca)',
+                'linear-gradient(to right, #93c5fd, #bfdbfe)',
+                'linear-gradient(to right, #c4b5fd, #ddd6fe)',
+                'linear-gradient(to right, #f9a8d4, #fbcfe8)',
+                'linear-gradient(to right, #fde68a, #fef3c7)',
+                'linear-gradient(to right, #a78bfa, #c4b5fd)'
+            ];
+            return gradients[hour % gradients.length];
+        }
+        
+        // ========== DAILY THEME COLORS ==========
         function getDailyColors() {
             const today = new Date();
             const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
             const colorSets = [
-                { primary: '#059669', secondary: '#0d9488', light: '#d1fae5' }, // Green/Teal
-                { primary: '#3b82f6', secondary: '#2563eb', light: '#dbeafe' }, // Blue
-                { primary: '#8b5cf6', secondary: '#7c3aed', light: '#ede9fe' }, // Purple
-                { primary: '#ec4899', secondary: '#db2777', light: '#fce7f3' }, // Pink
-                { primary: '#f59e0b', secondary: '#d97706', light: '#fef3c7' }, // Orange
-                { primary: '#ef4444', secondary: '#dc2626', light: '#fee2e2' }, // Red
-                { primary: '#14b8a6', secondary: '#0d9488', light: '#ccfbf1' }  // Cyan
+                { primary: '#059669', secondary: '#0d9488', light: '#d1fae5' },
+                { primary: '#3b82f6', secondary: '#2563eb', light: '#dbeafe' },
+                { primary: '#8b5cf6', secondary: '#7c3aed', light: '#ede9fe' },
+                { primary: '#ec4899', secondary: '#db2777', light: '#fce7f3' },
+                { primary: '#f59e0b', secondary: '#d97706', light: '#fef3c7' },
+                { primary: '#ef4444', secondary: '#dc2626', light: '#fee2e2' },
+                { primary: '#14b8a6', secondary: '#0d9488', light: '#ccfbf1' }
             ];
             return colorSets[dayOfYear % colorSets.length];
         }
         
         const dailyColors = getDailyColors();
         
-        // Apply colors dynamically
-        function applyDailyColors() {
+        function applyColors() {
+            const hourlyGradient = getHourlyGradient();
             const style = document.createElement('style');
+            style.id = 'dynamic-colors';
             style.innerHTML = `
-                .btn, .cat-btn.active, .download-btn { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
-                .featured { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
-                .profile-avatar, .nav-avatar { background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
-                .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: ${dailyColors.primary} !important; }
-                .cat-option.selected { border-color: ${dailyColors.primary} !important; background: ${dailyColors.light} !important; }
-                .nav-item.active { color: ${dailyColors.primary} !important; }
-                .detail-author, .auth-link, .cat-option.selected span, .cat-option.selected svg { color: ${dailyColors.primary} !important; }
-                .app-badge { background: ${dailyColors.light} !important; }
-                .app-badge svg { color: ${dailyColors.primary} !important; }
-                .detail-cat { background: ${dailyColors.light} !important; color: ${dailyColors.primary} !important; }
-                .progress-fill { background: linear-gradient(90deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; }
-                .file-selected { background: ${dailyColors.light} !important; }
-                .file-selected svg { color: ${dailyColors.primary} !important; }
+                .logo { 
+                    background: ${hourlyGradient} !important; 
+                    -webkit-background-clip: text !important; 
+                    -webkit-text-fill-color: transparent !important; 
+                    background-clip: text !important; 
+                }
+                .btn:not(.btn-outline):not(.btn-danger), .cat-btn.active, .download-btn, .featured { 
+                    background: linear-gradient(135deg, ${dailyColors.primary}, ${dailyColors.secondary}) !important; 
+                }
+                .nav-item.active, .detail-author { color: ${dailyColors.primary} !important; }
+                .detail-cat, .app-badge { background: ${dailyColors.light} !important; color: ${dailyColors.primary} !important; }
+                .form-input:focus, .form-textarea:focus { border-color: ${dailyColors.primary} !important; }
                 .spinner { border-top-color: ${dailyColors.primary} !important; }
             `;
+            
+            const existing = document.getElementById('dynamic-colors');
+            if (existing) existing.remove();
             document.head.appendChild(style);
         }
         
         // ========== ICONS ==========
         const icons = {
-            search: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
-            plus: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>`,
-            home: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>`,
-            upload: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>`,
-            user: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>`,
-            download: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>`,
-            phone: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>`,
-            book: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
-            music: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>`,
-            grid: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>`,
-            back: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>`,
-            share: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>`,
-            logout: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>`,
-            mail: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
-            x: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`,
-            check: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`,
-            image: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
-            file: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>`,
-            external: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>`
+            search: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>',
+            plus: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
+            home: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+            upload: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>',
+            user: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+            download: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>',
+            smartphone: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>',
+            book: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>',
+            music: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+            grid: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>',
+            arrowLeft: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>',
+            x: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+            star: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+            trash: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>',
+            mail: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+            logOut: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>',
+            messageSquare: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+            creditCard: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>',
+            alertCircle: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>',
         };
         
-        // ========== DEFAULT APPS ==========
+        // ========== DEFAULT APPS (HORIZONTAL FORMAT) ==========
         const defaultApps = [
-             { id: 'default_15', title: 'BeelzeFlow', shortDesc: ' App made for  Scheduling Daily Tasks and Routines by Beelze Apps', description: 'This is the app made for  Scheduling Daily Tasks and Routines by Beelze Apps. ', category: 'app', downloadType: 'apk', downloadUrl: ' https://github.com/zapk1/beelzeapps/releases/download/V2.0/app-debug.apk '  , iconUrl: 'https://i.postimg.cc/ZqVbgNM6/blue-letter-made-wood.jpg', author: 'Beelze Apps Team ', downloads: 322, size: '6 MB', version: 'V1.0', isDefault: true, featured: true },
-            { id: 'default_1', title: 'WhatsApp Mod', shortDesc: 'Enhanced WhatsApp with extra features', description: 'WhatsApp Mod with anti-delete messages, hide online status, download status, and many more features.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/733/733585.png', author: 'ModDev Team', downloads: 15420, size: '45 MB', version: '2.24.1', isDefault: true },
-            { id: 'default_2', title: 'Spotify Premium', shortDesc: 'Unlock all Spotify features', description: 'Spotify with premium features unlocked. Ad-free music, unlimited skips, and offline downloads.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2111/2111624.png', author: 'Premium Mods', downloads: 28930, size: '32 MB', version: '8.9.0', isDefault: true },
-            { id: 'default_3', title: 'Instagram Pro', shortDesc: 'Instagram with download features', description: 'Download photos, videos, stories, and reels directly.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2111/2111463.png', author: 'InstaTeam', downloads: 42100, size: '58 MB', version: '4.2.0', isDefault: true },
-            { id: 'default_4', title: 'YouTube Vanced', shortDesc: 'Ad-free YouTube experience', description: 'YouTube without ads, background playback, and SponsorBlock.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png', author: 'Vanced Team', downloads: 89200, size: '78 MB', version: '18.45.1', isDefault: true },
-            { id: 'default_5', title: 'Rich Dad Poor Dad', shortDesc: 'Financial education bestseller', description: 'What the Rich Teach Their Kids About Money.', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2232/2232688.png', author: 'Robert Kiyosaki', downloads: 12500, size: '2.4 MB', version: '1.0', isDefault: true },
-            { id: 'default_6', title: 'The 48 Laws of Power', shortDesc: 'Master the game of power', description: 'A modern classic on power and strategy by Robert Greene.', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/3330/3330314.png', author: 'Robert Greene', downloads: 18700, size: '3.1 MB', version: '1.0', isDefault: true },
-            { id: 'default_7', title: 'Think and Grow Rich', shortDesc: 'The classic wealth guide', description: 'Napoleon Hill\'s masterpiece on achieving success.', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2702/2702154.png', author: 'Napoleon Hill', downloads: 9800, size: '1.8 MB', version: '1.0', isDefault: true },
-            { id: 'default_8', title: 'Chill Lofi Beats', shortDesc: 'Relaxing study music', description: 'Perfect lofi hip-hop beats for studying or relaxing.', category: 'music', downloadType: 'audio', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/3844/3844724.png', author: 'ChillBeats', downloads: 5600, size: '45 MB', version: '1.0', isDefault: true },
-            { id: 'default_9', title: 'Motivational Speeches', shortDesc: 'Get inspired daily', description: 'Compilation of the best motivational speeches.', category: 'music', downloadType: 'audio', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/2936/2936690.png', author: 'MotivateMe', downloads: 3200, size: '28 MB', version: '1.0', isDefault: true },
-            { id: 'default_10', title: 'TikTok No Watermark', shortDesc: 'Download without watermarks', description: 'Save TikTok videos without the watermark.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://cdn-icons-png.flaticon.com/512/3046/3046121.png', author: 'TikMod', downloads: 67800, size: '92 MB', version: '32.1.5', isDefault: true }
+             { id: 'default_16', title: 'StreamX ', shortDesc: 'freedom, creativity, and real-time engagement', description: 'StreamX emphasizes user freedom, creativity, and real-time engagement, making it ideal for creators, influencers, and everyday users looking for a fresh, dynamic social experience.', category: 'app', downloadType: 'apk', downloadUrl: 'https://github.com/zapk1/beelzeapps/releases/download/V3.0/StreamX.apk', iconUrl: 'https://i.postimg.cc/4x0kBjzr/IMG-3460.png', screenshots: ['https://i.postimg.cc/fbvP2VQQ/Screenshot-20260111-074048-Chrome(1).jpg', 'https://i.postimg.cc/0Q09Ckcz/Screenshot-20260111-073955-Chrome.jpg', 'https://i.postimg.cc/fbvP2VQQ/Screenshot-20260111-074048-Chrome(1).jpg'], author: 'Beelze Apps Team', downloads: 3654622, size: '1 MB', version: 'V1.0', isDefault: true, featured: true },
+            { id: 'default_15', title: 'BeelzeFlow', shortDesc: 'Scheduling Daily Tasks and Routines', description: 'Complete task management with reminders, scheduling, and productivity tracking. Stay organized and never miss a deadline.', category: 'app', downloadType: 'apk', downloadUrl: 'https://github.com/zapk1/beelzeapps/releases/download/V2.0/app-debug.apk', iconUrl: 'https://i.postimg.cc/ZqVbgNM6/blue-letter-made-wood.jpg', screenshots: ['https://i.postimg.cc/QxqY3kJL/screenshot1.png', 'https://i.postimg.cc/TYmH2nKL/screenshot2.png', 'https://i.postimg.cc/pXjN4kYL/screenshot3.png'], author: 'Beelze Apps Team', downloads: 322, size: '6 MB', version: 'V1.0', isDefault: true, featured: true },
+            { id: 'default_1', title: 'WhatsApp Enhanced', shortDesc: 'Premium WhatsApp features unlocked', description: 'Enhanced WhatsApp with anti-delete messages, privacy controls, custom themes, and download status features.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg', screenshots: ['https://i.postimg.cc/Sample1.png', 'https://i.postimg.cc/Sample2.png'], author: 'ModDev Team', downloads: 15420, size: '45 MB', version: '2.24.1', isDefault: true },
+            { id: 'default_2', title: 'Spotify Premium', shortDesc: 'Unlimited music streaming', description: 'Ad-free music streaming with unlimited skips, offline downloads, and high-quality audio.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg', screenshots: ['https://i.postimg.cc/Sample3.png', 'https://i.postimg.cc/Sample4.png'], author: 'Premium Mods', downloads: 28930, size: '32 MB', version: '8.9.0', isDefault: true },
+            { id: 'default_3', title: 'Instagram Pro', shortDesc: 'Download photos and videos', description: 'Save Instagram photos, videos, stories, and reels directly to your device. No watermarks.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg', screenshots: ['https://i.postimg.cc/Sample5.png'], author: 'InstaTeam', downloads: 42100, size: '58 MB', version: '4.2.0', isDefault: true },
+            { id: 'default_4', title: 'YouTube Vanced', shortDesc: 'Ad-free YouTube', description: 'YouTube without ads, with background playback, SponsorBlock, and picture-in-picture mode.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', screenshots: [], author: 'Vanced Team', downloads: 89200, size: '78 MB', version: '18.45.1', isDefault: true },
+            { id: 'default_5', title: 'Rich Dad Poor Dad', shortDesc: 'Financial education classic', description: 'What the Rich Teach Their Kids About Money That the Poor and Middle Class Do Not!', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://i.postimg.cc/2S9bTjc2/download-(3).webp', screenshots: [], author: 'Robert Kiyosaki', downloads: 12500, size: '2.4 MB', version: '1.0', isDefault: true },
+            { id: 'default_6', title: 'The 48 Laws of Power', shortDesc: 'Master strategy and influence', description: 'An essential guide to power and strategy. Learn the timeless principles used by history\'s greatest leaders.', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://images-na.ssl-images-amazon.com/images/I/71aG+xDKSYL.jpg', screenshots: [], author: 'Robert Greene', downloads: 18700, size: '3.1 MB', version: '1.0', isDefault: true },
+            { id: 'default_7', title: 'Think and Grow Rich', shortDesc: 'The success philosophy', description: 'Napoleon Hill\'s timeless classic on personal achievement and wealth building.', category: 'book', downloadType: 'pdf', downloadUrl: '', iconUrl: 'https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg', screenshots: [], author: 'Napoleon Hill', downloads: 9800, size: '1.8 MB', version: '1.0', isDefault: true },
+            { id: 'default_8', title: 'Chill Lofi Beats Mix', shortDesc: 'Relaxing study music', description: 'Perfect lofi hip-hop beats collection for studying, working, or relaxing.', category: 'music', downloadType: 'audio', downloadUrl: '', iconUrl: 'https://i.postimg.cc/rFC5GkLV/download.webp', screenshots: [], author: 'ChillBeats', downloads: 5600, size: '45 MB', version: '1.0', isDefault: true },
+            { id: 'default_9', title: 'Motivation Collection', shortDesc: 'Powerful speeches', description: 'The best motivational speeches from top speakers worldwide.', category: 'music', downloadType: 'audio', downloadUrl: '', iconUrl: 'https://i.postimg.cc/wjQFBNB7/download-(1).webp', screenshots: [], author: 'MotivateMe', downloads: 3200, size: '28 MB', version: '1.0', isDefault: true },
+            { id: 'default_10', title: 'TikTok Downloader', shortDesc: 'Save videos without watermark', description: 'Download TikTok videos directly to your device without watermarks.', category: 'app', downloadType: 'apk', downloadUrl: '', iconUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg', screenshots: [], author: 'TikMod', downloads: 67800, size: '92 MB', version: '32.1.5', isDefault: true }
         ];
         
         // ========== STATE ==========
@@ -291,32 +278,44 @@
         let currentCategory = 'all';
         let searchQuery = '';
         let selectedAppId = null;
-        let isUploading = false;
-        let uploadProgress = 0;
-        let uploadStatus = '';
+        let downloadedApps = JSON.parse(localStorage.getItem('beelze_downloaded_apps') || '[]');
+        let selectedRating = 5;
         
-        let uploadFormData = { title: '', shortDesc: '', description: '', version: '1.0', tags: '', pwaUrl: '' };
-        let uploadCategory = 'app';
-        let uploadDownloadType = 'apk';
-        let uploadIconPreview = null;
-        let uploadIconBase64 = null;
-        let uploadFileName = null;
-        let uploadFileSize = null;
-        let uploadFileBase64 = null;
-        let uploadScreenshots = [];
+        // ========== UTILITIES ==========
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return (num || 0).toString();
+        }
+        
+        function getCategoryIcon(cat) {
+            if (cat === 'app') return icons.smartphone;
+            if (cat === 'book') return icons.book;
+            if (cat === 'music') return icons.music;
+            return icons.grid;
+        }
+        
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
         
         function getAllApps() {
-            const all = [...defaultApps, ...dbApps];
-            return all.sort((a, b) => (b.downloads || 0) - (a.downloads || 0));
+            const defaults = shuffleArray(defaultApps.filter(a => !a.featured));
+            const featured = defaultApps.filter(a => a.featured);
+            const db = shuffleArray(dbApps);
+            return [...featured, ...defaults, ...db];
         }
         
         function getFeaturedApp() {
-            const allApps = getAllApps();
-            const featuredApps = allApps.filter(a => a.featured || a.isDefault);
-            if (featuredApps.length === 0) return allApps[0];
-            const today = new Date();
-            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-            return featuredApps[dayOfYear % featuredApps.length];
+            const featured = defaultApps.filter(a => a.featured);
+            if (featured.length === 0) return getAllApps()[0];
+            const hour = new Date().getHours();
+            return featured[hour % featured.length];
         }
         
         // ========== FIREBASE ==========
@@ -343,132 +342,38 @@
             }
         }
         
-        async function saveAppToDB(appData) {
-            const response = await fetch(`${FIREBASE_DB_URL}/beelzeApps.json`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(appData)
-            });
-            if (!response.ok) throw new Error('Failed to save to database');
-            return (await response.json()).name;
-        }
-        
         async function updateAppInDB(appId, data) {
-            await fetch(`${FIREBASE_DB_URL}/beelzeApps/${appId}.json`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        }
-        
-        async function saveUserToDB(userData) {
-            const safeEmail = userData.email.replace(/\./g, '_');
-            await fetch(`${FIREBASE_DB_URL}/beelzeUsers/${safeEmail}.json`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
-        }
-        
-        // ========== UTILITIES ==========
-        function formatNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return (num || 0).toString();
-        }
-        
-        function getCategoryIcon(cat) {
-            if (cat === 'app') return icons.phone;
-            if (cat === 'book') return icons.book;
-            if (cat === 'music') return icons.music;
-            return icons.grid;
-        }
-        
-        function getCategoryLabel(cat) {
-            if (cat === 'app') return 'Application';
-            if (cat === 'book') return 'Book / PDF';
-            if (cat === 'music') return 'Music / Audio';
-            return 'All';
-        }
-        
-        function getDownloadTypeLabel(type) {
-            if (type === 'apk') return 'APK File';
-            if (type === 'pwa') return 'Web App (PWA)';
-            if (type === 'pdf') return 'PDF Document';
-            if (type === 'audio') return 'Audio File';
-            return 'File';
-        }
-        
-        function getMimeType(type) {
-            if (type === 'apk') return 'application/vnd.android.package-archive';
-            if (type === 'pdf') return 'application/pdf';
-            if (type === 'audio') return 'audio/mpeg';
-            return 'application/octet-stream';
-        }
-        
-        function getFileExtension(type) {
-            if (type === 'apk') return '.apk';
-            if (type === 'pdf') return '.pdf';
-            if (type === 'audio') return '.mp3';
-            return '';
-        }
-        
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
-        
-        function compressImage(dataUrl, maxWidth = 300, quality = 0.7) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width, height = img.height;
-                    if (width > maxWidth) { height = (height * maxWidth) / width; width = maxWidth; }
-                    canvas.width = width; canvas.height = height;
-                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                    resolve(canvas.toDataURL('image/jpeg', quality));
-                };
-                img.src = dataUrl;
-            });
-        }
-        
-        function getInitials(title) {
-            return (title || 'A').charAt(0).toUpperCase();
-        }
-        
-        function renderAppIcon(app, size = 80, rounded = 16) {
-            const initials = getInitials(app.title);
-            const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899'];
-            const colorIndex = (app.title || '').charCodeAt(0) % colors.length;
-            const bgColor = colors[colorIndex];
-            
-            if (app.iconUrl) {
-                return `<img src="${app.iconUrl}" alt="${app.title}" style="width:${size}px;height:${size}px;border-radius:${rounded}px;object-fit:cover;" onerror="this.outerHTML='<div style=\\'width:${size}px;height:${size}px;border-radius:${rounded}px;background:${bgColor};display:flex;align-items:center;justify-content:center;color:white;font-size:${size/2.5}px;font-weight:bold;\\'>${initials}</div>'">`;
+            try {
+                await fetch(`${FIREBASE_DB_URL}/beelzeApps/${appId}.json`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (e) {
+                console.error(e);
             }
-            return `<div style="width:${size}px;height:${size}px;border-radius:${rounded}px;background:${bgColor};display:flex;align-items:center;justify-content:center;color:white;font-size:${size/2.5}px;font-weight:bold;">${initials}</div>`;
         }
         
-        // ========== SCREENSHOT VIEWER ==========
-        function viewScreenshot(imageUrl) {
-            const modal = document.createElement('div');
-            modal.id = 'screenshotModal';
-            modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px;';
-            modal.onclick = () => modal.remove();
-            modal.innerHTML = `
-                <div style="position:relative;max-width:100%;max-height:100%;">
-                    <img src="${imageUrl}" style="max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-                    <button onclick="document.getElementById('screenshotModal').remove()" style="position:absolute;top:-12px;right:-12px;width:40px;height:40px;background:white;border:none;border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);">${icons.x}</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
+        // ========== DOWNLOAD TRACKING ==========
+        async function trackDownload(appId) {
+            if (downloadedApps.includes(appId)) return false;
+            downloadedApps.push(appId);
+            localStorage.setItem('beelze_downloaded_apps', JSON.stringify(downloadedApps));
+            
+            const app = getAllApps().find(a => a.id === appId);
+            if (!app || app.isDefault) return true;
+            
+            try {
+                const newCount = (app.downloads || 0) + 1;
+                await updateAppInDB(appId, { downloads: newCount });
+                await loadAppsFromDB();
+            } catch (e) {
+                console.error(e);
+            }
+            return true;
         }
         
-        // ========== DOWNLOAD - FIXED ==========
+              // ========== DOWNLOAD - FIXED ==========
         async function downloadApp(id) {
             const allApps = getAllApps();
             const app = allApps.find(a => a.id === id);
@@ -485,117 +390,316 @@
                 } catch (e) { console.error(e); }
             }
             
-            // Handle PWA apps
-            if (app.downloadType === 'pwa' && app.downloadUrl) {
+        
+            if (app.downloadUrl) {
                 window.open(app.downloadUrl, '_blank');
                 return;
             }
             
-            // Handle default apps with downloadUrl
-            if (app.isDefault && app.downloadUrl) {
-                window.open(app.downloadUrl, '_blank');
+            if (app.isDefault) {
+                alert('This is a demo app. Download link not available.');
                 return;
             }
             
-            // Handle default apps without downloadUrl (demo)
-            if (app.isDefault && !app.downloadUrl) {
-                alert('This is a demo app. The download link is not available.');
+            alert('Download functionality for uploaded files coming soon!');
+        }
+        
+        // ========== REVIEWS ==========
+        async function loadReviews(appId) {
+            try {
+                const response = await fetch(`${FIREBASE_DB_URL}/appReviews/${appId}.json`);
+                const data = await response.json();
+                return data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
+        }
+        
+        async function addReview(appId, rating, text) {
+            if (!currentUser) {
+                alert('Please sign in to leave a review');
                 return;
             }
             
-            // Handle real uploaded files (base64)
-            if (app.fileBase64) {
-                showDownloadModal(app.title);
-                try {
-                    const base64Data = app.fileBase64.split(',')[1];
-                    const binaryString = atob(base64Data);
-                    const bytes = new Uint8Array(binaryString.length);
-                    for (let i = 0; i < binaryString.length; i++) {
-                        bytes[i] = binaryString.charCodeAt(i);
+            try {
+                await fetch(`${FIREBASE_DB_URL}/appReviews/${appId}.json`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.email,
+                        userEmail: currentUser.email,
+                        rating,
+                        text,
+                        timestamp: Date.now()
+                    })
+                });
+                render();
+            } catch (e) {
+                alert('Failed to add review: ' + e.message);
+            }
+        }
+        
+        async function deleteReview(appId, reviewId) {
+            try {
+                await fetch(`${FIREBASE_DB_URL}/appReviews/${appId}/${reviewId}.json`, {
+                    method: 'DELETE'
+                });
+                render();
+            } catch (e) {
+                alert('Failed to delete review: ' + e.message);
+            }
+        }
+        
+        // ========== AUTH ==========
+        function showAuthModal(isSignUp = false) {
+            const modal = document.createElement('div');
+            modal.id = 'authModal';
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>${isSignUp ? 'Create Account' : 'Sign In'}</h2>
+                        <button class="modal-close" onclick="closeAuthModal()">${icons.x}</button>
+                    </div>
+                    <form onsubmit="handleAuth(event, ${isSignUp})">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" required>
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-input" minlength="6" required>
+                        <div id="authError" class="error-msg" style="display:none;"></div>
+                        <button type="submit" class="btn" style="width:100%;justify-content:center;">${isSignUp ? 'Sign Up' : 'Sign In'}</button>
+                    </form>
+                    <p style="text-align:center;margin-top:16px;font-size:14px;color:#6b7280;">
+                        ${isSignUp ? 'Already have an account?' : "Don't have an account?"}
+                        <a href__="#" onclick="closeAuthModal();showAuthModal(${!isSignUp});return false;" style="color:${dailyColors.primary};font-weight:500;">${isSignUp ? 'Sign In' : 'Sign Up'}</a>
+                    </p>
+                    <p style="text-align:center;margin-top:8px;">
+                        <a href__="#" onclick="showForgotPassword();return false;" style="color:${dailyColors.primary};font-size:13px;">Forgot Password?</a>
+                    </p>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function closeAuthModal() {
+            const modal = document.getElementById('authModal');
+            if (modal) modal.remove();
+        }
+        
+        async function handleAuth(e, isSignUp) {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const errorDiv = document.getElementById('authError');
+            
+            try {
+                const usersResponse = await fetch(`${FIREBASE_DB_URL}/beelzeUsers.json`);
+                const users = await usersResponse.json() || {};
+                const userKey = email.replace(/\./g, '_');
+                
+                if (isSignUp) {
+                    if (users[userKey]) {
+                        errorDiv.style.display = 'block';
+                        errorDiv.textContent = 'This email is already registered. Please sign in instead.';
+                        return;
                     }
-                    const blob = new Blob([bytes], { type: getMimeType(app.downloadType) });
-                    const url = URL.createObjectURL(blob);
-                    const filename = (app.title || 'download').replace(/[^a-z0-9]/gi, '_') + getFileExtension(app.downloadType);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); hideDownloadModal(); }, 1000);
-                } catch (error) {
-                    console.error('Download error:', error);
-                    hideDownloadModal();
-                    alert('Download failed. Please try again.');
+                    
+                    await fetch(`${FIREBASE_DB_URL}/beelzeUsers/${userKey}.json`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password, createdDate: new Date().toISOString() })
+                    });
+                    
+                    currentUser = { email };
+                    closeAuthModal();
+                    render();
+                } else {
+                    const user = users[userKey];
+                    if (!user || user.password !== password) {
+                        errorDiv.style.display = 'block';
+                        errorDiv.textContent = 'Invalid email or password.';
+                        return;
+                    }
+                    
+                    currentUser = { email };
+                    closeAuthModal();
+                    render();
                 }
-            } else {
-                alert('No file available for download.');
+            } catch (error) {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = error.message;
             }
         }
         
-        function showDownloadModal(title) {
-            document.getElementById('downloadModal').innerHTML = `<div class="downloading"><div class="downloading-content"><div class="spinner"></div><h3>Downloading...</h3><p>${title}</p></div></div>`;
+        function showForgotPassword() {
+            closeAuthModal();
+            alert('Password reset: Please contact support at ngwepelk885@gmail.com with your registered email to reset your password.');
         }
         
-        function hideDownloadModal() {
-            document.getElementById('downloadModal').innerHTML = '';
+        function logout() {
+            currentUser = null;
+            navigateTo('home');
+        }
+        
+        // ========== UPLOAD INFO ==========
+        function showUploadInfo() {
+            if (!currentUser) {
+                showAuthModal(false);
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.id = 'uploadModal';
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Upload Your App</h2>
+                        <button class="modal-close" onclick="closeUploadModal()">${icons.x}</button>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>${icons.alertCircle} Free Upload (Up to 10MB)</h4>
+                        <p>Files under 10MB can be uploaded directly through our platform for <strong>FREE</strong>!</p>
+                    </div>
+                    
+                    <div class="info-box warning">
+                        <h4>${icons.alertCircle} Large Files (Over 10MB)</h4>
+                        <p>For apps larger than 10MB, please follow these steps:</p>
+                        <p><strong>1.</strong> Send your APK file, icon, screenshots, and app details to:</p>
+                        <p style="margin:8px 0;padding:12px;background:white;border-radius:8px;font-weight:600;">ngwepelk885@gmail.com</p>
+                        <p><strong>2.</strong> Payment: R500 per app</p>
+                        <p><strong>3.</strong> Your app will stay on our platform <strong>permanently</strong></p>
+                    </div>
+                    
+                    <div class="section">
+                        <h4 style="margin-bottom:12px;">${icons.creditCard} Payment Details</h4>
+                        <div class="bank-card-placeholder">
+                            <p>Bank card image will be displayed here</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" style="width:100%;justify-content:center;" onclick="closeUploadModal()">Got It</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function closeUploadModal() {
+            const modal = document.getElementById('uploadModal');
+            if (modal) modal.remove();
         }
         
         // ========== NAVIGATION ==========
         function navigateTo(page) {
             currentPage = page;
-            if (page === 'upload') resetUploadData();
             render();
             window.scrollTo(0, 0);
         }
         
-        function setCategory(cat) { currentCategory = cat; render(); }
-        
-        function handleSearch(value) { 
-            searchQuery = value || ''; 
-            render(); 
+        function setCategory(cat) {
+            currentCategory = cat;
+            render();
         }
         
-        function viewApp(id) { selectedAppId = id; currentPage = 'detail'; render(); window.scrollTo(0, 0); }
+        function handleSearch(value) {
+            searchQuery = value || '';
+            render();
+        }
         
-        // ========== RENDER: BOTTOM NAV ==========
+        function viewApp(id) {
+            selectedAppId = id;
+            currentPage = 'detail';
+            render();
+            window.scrollTo(0, 0);
+        }
+        
+        function viewScreenshot(url) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div style="max-width:90%;max-height:90vh;">
+                    <img src="${url}" style="max-width:100%;max-height:90vh;border-radius:12px;">
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function setRating(rating) {
+            selectedRating = rating;
+            document.querySelectorAll('.star-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i < rating);
+            });
+        }
+        
+        async function submitReview(appId) {
+            const text = document.getElementById('reviewText').value.trim();
+            if (!text) {
+                alert('Please write a review');
+                return;
+            }
+            await addReview(appId, selectedRating, text);
+            document.getElementById('reviewText').value = '';
+            setRating(5);
+        }
+        
+        // ========== RENDER ==========
         function renderBottomNav() {
-            return `<nav class="bottom-nav"><div class="nav-content">
-                <button class="nav-item ${currentPage === 'home' || currentPage === 'detail' ? 'active' : ''}" onclick="navigateTo('home')">${icons.home}<span>Home</span></button>
-                <button class="nav-item ${currentPage === 'upload' ? 'active' : ''}" onclick="navigateTo('upload')">${icons.upload}<span>Upload</span></button>
-                <button class="nav-item ${currentPage === 'profile' ? 'active' : ''}" onclick="navigateTo('profile')">${currentUser ? `<div class="nav-avatar">${(currentUser.name || currentUser.email || 'U')[0].toUpperCase()}</div>` : icons.user}<span>Profile</span></button>
-            </div></nav>`;
+            return `
+                <nav class="bottom-nav">
+                    <div class="nav-content">
+                        <button class="nav-item ${currentPage === 'home' || currentPage === 'detail' ? 'active' : ''}" onclick="navigateTo('home')">
+                            ${icons.home}
+                            <span>Home</span>
+                        </button>
+                        <button class="nav-item" onclick="showUploadInfo()">
+                            ${icons.upload}
+                            <span>Upload</span>
+                        </button>
+                        <button class="nav-item ${currentPage === 'profile' ? 'active' : ''}" onclick="navigateTo('profile')">
+                            ${currentUser ? `<div class="nav-avatar">${currentUser.email[0].toUpperCase()}</div>` : icons.user}
+                            <span>Profile</span>
+                        </button>
+                    </div>
+                </nav>
+            `;
         }
         
-        // ========== RENDER: HOME ==========
         function renderHome() {
             const allApps = getAllApps();
-            const query = (searchQuery || '').toLowerCase().trim();
-            
+            const query = searchQuery.toLowerCase().trim();
             const filtered = allApps.filter(app => {
-                if (!app) return false;
                 const matchesCat = currentCategory === 'all' || app.category === currentCategory;
                 if (!query) return matchesCat;
-                const title = (app.title || '').toLowerCase();
-                const desc = (app.description || '').toLowerCase();
-                const shortDesc = (app.shortDesc || '').toLowerCase();
-                const matchesSearch = title.includes(query) || desc.includes(query) || shortDesc.includes(query);
+                const matchesSearch = (app.title || '').toLowerCase().includes(query) ||
+                                     (app.description || '').toLowerCase().includes(query);
                 return matchesCat && matchesSearch;
             });
             
             const featured = getFeaturedApp();
             
             return `
-                <header class="header"><div class="header-content">
-                    <div class="header-top">
-                        <div><div class="logo">Beelze Apps</div><div class="logo-sub">Your alternative app store</div></div>
-                        <button class="btn" onclick="navigateTo('upload')">${icons.plus}<span>Upload</span></button>
+                <header class="header">
+                    <div class="header-content">
+                        <div class="header-top">
+                            <div>
+                                <div class="logo">Beelze Apps</div>
+                                <div class="logo-sub">Your alternative app store</div>
+                            </div>
+                            <button class="btn" onclick="showUploadInfo()">${icons.plus} Upload</button>
+                        </div>
+                        <div class="search-box">
+                            ${icons.search}
+                            <input type="text" class="search-input" placeholder="Search apps..." value="${searchQuery}" oninput="handleSearch(this.value)">
+                        </div>
                     </div>
-                    <div class="search-box">${icons.search}<input type="text" class="search-input" placeholder="Search apps, books, music..." value="${searchQuery}" oninput="handleSearch(this.value)"></div>
-                </div></header>
+                </header>
                 
                 <div class="categories">
                     <button class="cat-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">${icons.grid} All</button>
-                    <button class="cat-btn ${currentCategory === 'app' ? 'active' : ''}" onclick="setCategory('app')">${icons.phone} Apps</button>
+                    <button class="cat-btn ${currentCategory === 'app' ? 'active' : ''}" onclick="setCategory('app')">${icons.smartphone} Apps</button>
                     <button class="cat-btn ${currentCategory === 'book' ? 'active' : ''}" onclick="setCategory('book')">${icons.book} Books</button>
                     <button class="cat-btn ${currentCategory === 'music' ? 'active' : ''}" onclick="setCategory('music')">${icons.music} Music</button>
                 </div>
@@ -604,40 +708,198 @@
                     ${!query && currentCategory === 'all' && featured ? `
                         <div class="featured" onclick="viewApp('${featured.id}')">
                             <div class="featured-content">
-                                ${renderAppIcon(featured, 96, 20)}
-                                <div style="flex:1;min-width:0;">
+                                <img src="${featured.iconUrl}" class="featured-icon" alt="${featured.title}">
+                                <div style="flex:1;">
                                     <span class="featured-badge">Featured</span>
-                                    <h2 class="featured-title">${featured.title || 'Untitled'}</h2>
-                                    <p class="featured-desc">${featured.shortDesc || ''}</p>
-                                    <div class="featured-stats"><span style="display:flex;align-items:center;gap:4px;">${icons.download} ${formatNumber(featured.downloads)} downloads</span></div>
+                                    <h2 class="featured-title">${featured.title}</h2>
+                                    <p class="featured-desc">${featured.shortDesc}</p>
+                                    <div class="featured-stats">
+                                        <span style="display:flex;align-items:center;gap:4px;">${icons.download} ${formatNumber(featured.downloads)}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ` : ''}
                     
-                    ${query ? `<p class="result-count">${filtered.length} results for "${query}"</p>` : ''}
-                    
-                    ${filtered.length > 0 ? filtered.map(app => `
+                    ${filtered.map(app => `
                         <div class="app-card" onclick="viewApp('${app.id}')">
                             <div class="app-icon-wrap">
-                                ${renderAppIcon(app, 80, 16)}
+                                <img src="${app.iconUrl}" class="app-icon" alt="${app.title}">
                                 <div class="app-badge">${getCategoryIcon(app.category)}</div>
                             </div>
                             <div class="app-info">
-                                <div class="app-title">${app.title || 'Untitled'}</div>
-                                <div class="app-author">${app.author || 'Unknown'}</div>
-                                <div class="app-desc">${app.shortDesc || ''}</div>
+                                <div class="app-title">${app.title}</div>
+                                <div class="app-author">${app.author}</div>
+                                <div class="app-desc">${app.shortDesc}</div>
                                 <div class="app-stats">
                                     <span style="display:flex;align-items:center;gap:4px;">${icons.download} ${formatNumber(app.downloads)}</span>
                                     ${app.size ? `<span>${app.size}</span>` : ''}
                                 </div>
                             </div>
                         </div>
+                    `).join('')}
+                </main>
+                ${renderBottomNav()}
+            `;
+        }
+        
+        async function renderDetail() {
+            const app = getAllApps().find(a => a.id === selectedAppId);
+            if (!app) return renderHome();
+            
+            const reviews = await loadReviews(app.id);
+            const avgRating = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1) : 0;
+            
+            return `
+                <header class="header">
+                    <div class="header-content">
+                        <div style="display:flex;align-items:center;gap:16px;">
+                            <button onclick="navigateTo('home')" style="background:none;border:none;padding:8px;cursor:pointer;">${icons.arrowLeft}</button>
+                            <h1 style="font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;">${app.title}</h1>
+                        </div>
+                    </div>
+                </header>
+                
+                <main class="main" style="padding-top:24px;">
+                    <div class="detail-card">
+                        <div class="detail-top">
+                            <img src="${app.iconUrl}" class="detail-icon" alt="${app.title}">
+                            <div style="flex:1;">
+                                <h2 class="detail-title">${app.title}</h2>
+                                <p class="detail-author">${app.author}</p>
+                                <span class="detail-cat">${getCategoryIcon(app.category)} ${app.category}</span>
+                            </div>
+                        </div>
+                        <div class="detail-stats">
+                            <div class="stat"><div class="stat-val">${icons.download} ${formatNumber(app.downloads)}</div><div class="stat-label">Downloads</div></div>
+                            <div class="stat"><div class="stat-val">${app.size || 'N/A'}</div><div class="stat-label">Size</div></div>
+                            <div class="stat"><div class="stat-val">${avgRating} ★</div><div class="stat-label">Rating</div></div>
+                        </div>
+                        <button class="download-btn" onclick="downloadApp('${app.id}')">
+                            ${icons.download} Download
+                        </button>
+                    </div>
+                    
+                    ${app.screenshots && app.screenshots.length > 0 ? `
+                        <div style="margin-bottom:24px;">
+                            <h3 class="section-title">Screenshots</h3>
+                            <div class="screenshots">
+                                ${app.screenshots.map(s => `<img src="${s}" class="screenshot" alt="Screenshot" onclick="viewScreenshot('${s}')">`).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="section">
+                        <h3 class="section-title">About</h3>
+                        <p class="section-text">${app.description}</p>
+                    </div>
+                    
+                    <div class="reviews-section">
+                        <h3 class="section-title">${icons.messageSquare} Reviews (${reviews.length})</h3>
+                        
+                        ${reviews.map(review => `
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <span class="review-author">${review.userEmail.split('@')[0]}</span>
+                                    <span class="review-date">${new Date(review.timestamp).toLocaleDateString()}</span>
+                                </div>
+                                <div class="review-stars">
+                                    ${[1,2,3,4,5].map(i => `<span class="star ${i <= review.rating ? '' : 'empty'}">★</span>`).join('')}
+                                </div>
+                                <p class="review-text">${review.text}</p>
+                                ${currentUser && review.userEmail === currentUser.email ? `
+                                    <div class="review-actions">
+                                        <button class="btn btn-danger" style="padding:4px 12px;" onclick="deleteReview('${app.id}', '${review.id}')">${icons.trash} Delete</button>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                        
+                        <div class="add-review">
+                            <h4 style="margin-bottom:12px;">Write a Review</h4>
+                            <div class="star-input" id="starInput">
+                                ${[1,2,3,4,5].map(i => `<button type="button" class="star-btn ${i <= selectedRating ? 'active' : ''}" data-rating="${i}" onclick="setRating(${i})">★</button>`).join('')}
+                            </div>
+                            <textarea id="reviewText" class="form-textarea" placeholder="Share your thoughts..."></textarea>
+                            <button class="btn" onclick="submitReview('${app.id}')">Post Review</button>
+                        </div>
+                    </div>
+                </main>
+                ${renderBottomNav()}
+            `;
+        }
+        
+        function renderProfile() {
+            if (!currentUser) {
+                return `
+                    <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;">
+                        <div style="background:white;border-radius:24px;padding:32px;max-width:400px;width:100%;text-align:center;">
+                            <div style="width:64px;height:64px;background:#d1fae5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">${icons.user}</div>
+                            <h2 style="font-size:20px;font-weight:bold;margin-bottom:8px;">Sign In Required</h2>
+                            <p style="color:#6b7280;margin-bottom:24px;">Sign in to view your profile and uploads</p>
+                            <button class="btn" style="width:100%;justify-content:center;" onclick="showAuthModal(false)">Sign In</button>
+                        </div>
+                    </div>
+                    ${renderBottomNav()}
+                `;
+            }
+            
+            const myApps = dbApps.filter(a => a.authorEmail === currentUser.email);
+            const totalDownloads = myApps.reduce((sum, a) => sum + (a.downloads || 0), 0);
+            
+            return `
+                <header class="header">
+                    <div class="header-content">
+                        <h1 style="font-weight:600;">My Profile</h1>
+                    </div>
+                </header>
+                
+                <main class="main" style="padding-top:24px;">
+                    <div class="section">
+                        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+                            <div class="nav-avatar" style="width:64px;height:64px;font-size:24px;">${currentUser.email[0].toUpperCase()}</div>
+                            <div>
+                                <h2 style="font-weight:600;font-size:18px;">${currentUser.email}</h2>
+                                <p style="font-size:14px;color:#6b7280;">Member</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+                            <div style="background:#f9fafb;padding:16px;border-radius:12px;text-align:center;">
+                                <div style="font-size:24px;font-weight:bold;">${myApps.length}</div>
+                                <div style="font-size:14px;color:#6b7280;">Uploads</div>
+                            </div>
+                            <div style="background:#f9fafb;padding:16px;border-radius:12px;text-align:center;">
+                                <div style="font-size:24px;font-weight:bold;">${formatNumber(totalDownloads)}</div>
+                                <div style="font-size:14px;color:#6b7280;">Downloads</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="logout()">${icons.logOut} Sign Out</button>
+                    </div>
+                    
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                        <h3 style="font-size:18px;font-weight:600;">My Uploads</h3>
+                        <button class="btn" onclick="showUploadInfo()">${icons.plus} Upload</button>
+                    </div>
+                    
+                    ${myApps.length > 0 ? myApps.map(app => `
+                        <div class="app-card" onclick="viewApp('${app.id}')">
+                            <div class="app-icon-wrap">
+                                <img src="${app.iconUrl}" class="app-icon" alt="${app.title}">
+                            </div>
+                            <div class="app-info">
+                                <div class="app-title">${app.title}</div>
+                                <div class="app-stats">
+                                    <span style="display:flex;align-items:center;gap:4px;">${icons.download} ${formatNumber(app.downloads || 0)}</span>
+                                </div>
+                            </div>
+                        </div>
                     `).join('') : `
-                        <div class="empty">
-                            <div class="empty-icon">${icons.search}</div>
-                            <h3>No results found</h3>
-                            <p>Try a different search term</p>
+                        <div class="section" style="text-align:center;padding:40px;">
+                            <div class="empty-icon" style="margin:0 auto 16px;">${icons.upload}</div>
+                            <h3>No uploads yet</h3>
+                            <button class="btn" onclick="showUploadInfo()" style="margin-top:16px;">${icons.plus} Upload Your First App</button>
                         </div>
                     `}
                 </main>
@@ -645,346 +907,24 @@
             `;
         }
         
-        // ========== RENDER: DETAIL ==========
-        function renderDetail() {
-            const allApps = getAllApps();
-            const app = allApps.find(a => a.id === selectedAppId);
-            if (!app) return renderHome();
-            
-            return `
-                <header class="header"><div class="header-content">
-                    <div style="display:flex;align-items:center;gap:16px;">
-                        <button onclick="navigateTo('home')" style="background:none;border:none;padding:8px;cursor:pointer;">${icons.back}</button>
-                        <h1 style="font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${app.title || 'Untitled'}</h1>
-                        <button onclick="shareApp()" style="background:none;border:none;padding:8px;cursor:pointer;">${icons.share}</button>
-                    </div>
-                </div></header>
-                
-                <main class="main" style="padding-top:24px;">
-                    <div class="detail-card">
-                        <div class="detail-top">
-                            ${renderAppIcon(app, 112, 24)}
-                            <div style="flex:1;min-width:0;">
-                                <h2 class="detail-title">${app.title || 'Untitled'}</h2>
-                                <p class="detail-author">${app.author || 'Unknown'}</p>
-                                <span class="detail-cat">${getCategoryIcon(app.category)} ${getCategoryLabel(app.category)}</span>
-                            </div>
-                        </div>
-                        <div class="detail-stats">
-                            <div class="stat"><div class="stat-val">${icons.download} ${formatNumber(app.downloads)}</div><div class="stat-label">Downloads</div></div>
-                            <div class="stat"><div class="stat-val">${app.size || 'N/A'}</div><div class="stat-label">Size</div></div>
-                            <div class="stat"><div class="stat-val">${app.version || '1.0'}</div><div class="stat-label">Version</div></div>
-                        </div>
-                        <button class="download-btn" onclick="downloadApp('${app.id}')">
-                            ${app.downloadType === 'pwa' || (app.isDefault && app.downloadUrl) ? icons.external : icons.download}
-                            ${app.downloadType === 'pwa' || (app.isDefault && app.downloadUrl) ? 'Open/Download' : 'Download'}
-                        </button>
-                        <p style="text-align:center;font-size:12px;color:#6b7280;margin-top:12px;">${getDownloadTypeLabel(app.downloadType)}</p>
-                    </div>
-                    
-                    ${app.screenshots && app.screenshots.length > 0 ? `
-                        <div style="margin-bottom:24px;">
-                            <h3 class="section-title">Screenshots</h3>
-                            <div class="screenshots">${app.screenshots.map(s => `<img src="${s}" class="screenshot" alt="Screenshot" onclick="viewScreenshot('${s}')" style="cursor:pointer;" onerror="this.style.display='none'">`).join('')}</div>
-                        </div>
-                    ` : ''}
-                    
-                    <div class="section">
-                        <h3 class="section-title">About</h3>
-                        <p class="section-text">${app.description || 'No description available.'}</p>
-                    </div>
-                    
-                    <div class="section">
-                        <h3 class="section-title">Developer</h3>
-                        <div class="dev-info">
-                            <div class="dev-avatar">${icons.user}</div>
-                            <div><p class="dev-name">${app.author || 'Unknown'}</p><p class="dev-email">${app.authorEmail || ''}</p></div>
-                        </div>
-                    </div>
-                </main>
-                ${renderBottomNav()}
-            `;
-        }
-        
-        // ========== RENDER: UPLOAD ==========
-        function resetUploadData() {
-            uploadFormData = { title: '', shortDesc: '', description: '', version: '1.0', tags: '', pwaUrl: '' };
-            uploadCategory = 'app'; uploadDownloadType = 'apk';
-            uploadIconPreview = null; uploadIconBase64 = null;
-            uploadFileName = null; uploadFileSize = null; uploadFileBase64 = null;
-            uploadScreenshots = []; uploadProgress = 0; uploadStatus = ''; isUploading = false;
-        }
-        
-        function renderUpload() {
-            if (!currentUser) {
-                return `<div class="auth-screen"><div class="auth-card">
-                    <div class="auth-icon">${icons.upload}</div>
-                    <h2 class="auth-title">Sign in to Upload</h2>
-                    <p class="auth-desc">You need to be signed in to upload.</p>
-                    <button class="btn" style="width:100%;justify-content:center;padding:16px;" onclick="showLoginModal()">Sign In</button>
-                    <a href__="#" class="auth-link" onclick="navigateTo('home');return false;">Go back home</a>
-                </div></div>${renderBottomNav()}`;
-            }
-            
-            const downloadTypes = { app: [{ value: 'apk', label: 'APK File' }, { value: 'pwa', label: 'Web App (PWA URL)' }], book: [{ value: 'pdf', label: 'PDF Document' }], music: [{ value: 'audio', label: 'Audio File' }] };
-            
-            return `
-                <header class="header"><div class="header-content"><div style="display:flex;align-items:center;gap:16px;">
-                    <button onclick="navigateTo('home')" style="background:none;border:none;padding:8px;cursor:pointer;">${icons.back}</button>
-                    <h1 style="font-weight:600;">Upload New Item</h1>
-                </div></div></header>
-                
-                <main class="main" style="padding-top:24px;">
-                    <div class="form-section">
-                        <label class="form-label">Category</label>
-                        <div class="cat-grid">
-                            <div class="cat-option ${uploadCategory === 'app' ? 'selected' : ''}" onclick="selectUploadCategory('app')">${icons.phone}<span>App</span></div>
-                            <div class="cat-option ${uploadCategory === 'book' ? 'selected' : ''}" onclick="selectUploadCategory('book')">${icons.book}<span>Book</span></div>
-                            <div class="cat-option ${uploadCategory === 'music' ? 'selected' : ''}" onclick="selectUploadCategory('music')">${icons.music}<span>Music</span></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <label class="form-label">Icon / Cover *</label>
-                        <div class="icon-upload-wrap">
-                            ${uploadIconPreview ? `<div style="position:relative;"><img src="${uploadIconPreview}" class="icon-preview" alt="Icon"><button type="button" onclick="removeUploadIcon()" style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;background:#ef4444;color:white;border:none;border-radius:50%;cursor:pointer;">${icons.x}</button></div>` : `<label class="icon-upload">${icons.image}<span>Add Icon</span><input type="file" accept="image/*" style="display:none;" onchange="handleUploadIconSelect(this)"></label>`}
-                            <div class="icon-tips"><p>Square image</p><p>PNG or JPG</p></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <label class="form-label-sm">Title *</label>
-                        <input type="text" class="form-input" placeholder="My Awesome App" value="${uploadFormData.title}" oninput="uploadFormData.title=this.value">
-                        <label class="form-label-sm">Short Description</label>
-                        <input type="text" class="form-input" placeholder="A brief tagline" value="${uploadFormData.shortDesc}" oninput="uploadFormData.shortDesc=this.value">
-                        <label class="form-label-sm">Full Description</label>
-                        <textarea class="form-textarea" placeholder="Describe your app..." oninput="uploadFormData.description=this.value">${uploadFormData.description}</textarea>
-                        <div class="grid-2" style="margin-top:16px;">
-                            <div><label class="form-label-sm">Version</label><input type="text" class="form-input" placeholder="1.0" value="${uploadFormData.version}" oninput="uploadFormData.version=this.value"></div>
-                            <div><label class="form-label-sm">Tags</label><input type="text" class="form-input" placeholder="tools" value="${uploadFormData.tags}" oninput="uploadFormData.tags=this.value"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <label class="form-label">Download File *</label>
-                        <label class="form-label-sm">File Type</label>
-                        <select class="form-select" onchange="selectUploadDownloadType(this.value)">
-                            ${downloadTypes[uploadCategory].map(t => `<option value="${t.value}" ${uploadDownloadType === t.value ? 'selected' : ''}>${t.label}</option>`).join('')}
-                        </select>
-                        ${uploadDownloadType === 'pwa' ? `<label class="form-label-sm">PWA URL</label><input type="url" class="form-input" placeholder="https://myapp.com" value="${uploadFormData.pwaUrl}" oninput="uploadFormData.pwaUrl=this.value">` : `
-                            ${uploadFileName ? `<div class="file-selected">${icons.file}<div class="file-selected-info"><div class="file-selected-name">${uploadFileName}</div><div class="file-selected-size">${uploadFileSize}</div></div><button type="button" class="file-selected-remove" onclick="removeUploadFile()">${icons.x}</button></div>` : `<label class="file-upload">${icons.upload}<p style="font-weight:500;color:#374151;">Click to upload file</p><p>Any size</p><input type="file" style="display:none;" onchange="handleUploadFileSelect(this)" accept="${uploadCategory === 'app' ? '.apk' : uploadCategory === 'book' ? '.pdf' : 'audio/*'}"></label>`}
-                        `}
-                    </div>
-                    
-                    <div class="form-section">
-                        <label class="form-label">Screenshots (up to 3)</label>
-                        <div class="ss-upload-wrap">
-                            ${uploadScreenshots.map((s, i) => `<div class="ss-preview"><img src="${s}" alt="Screenshot"><button type="button" class="ss-remove" onclick="removeUploadScreenshot(${i})">${icons.x}</button></div>`).join('')}
-                            ${uploadScreenshots.length < 3 ? `<label class="ss-upload">${icons.plus}<span style="font-size:12px;color:#6b7280;">Add</span><input type="file" accept="image/*" style="display:none;" onchange="handleUploadScreenshotSelect(this)"></label>` : ''}
-                        </div>
-                    </div>
-                    
-                    ${isUploading ? `<div class="form-section"><div class="progress-bar"><div class="progress-fill" style="width:${uploadProgress}%"></div></div><p class="upload-status">${uploadStatus}</p></div>` : ''}
-                    
-                    <button class="download-btn" style="margin-bottom:24px;" onclick="handleUploadSubmit()" ${isUploading ? 'disabled' : ''}>${icons.check} ${isUploading ? 'Uploading...' : 'Publish'}</button>
-                </main>
-                ${renderBottomNav()}
-            `;
-        }
-        
-        // ========== RENDER: PROFILE ==========
-        function renderProfile() {
-            if (!currentUser) {
-                return `<div class="auth-screen"><div class="auth-card">
-                    <div class="auth-icon">${icons.user}</div>
-                    <h2 class="auth-title">Sign In</h2>
-                    <p class="auth-desc">Sign in to view your profile.</p>
-                    <button class="btn" style="width:100%;justify-content:center;padding:16px;" onclick="showLoginModal()">Sign In</button>
-                    <a href__="#" class="auth-link" onclick="navigateTo('home');return false;">Go back home</a>
-                </div></div>${renderBottomNav()}`;
-            }
-            
-            const myApps = dbApps.filter(a => a && a.authorEmail === currentUser.email);
-            const totalDownloads = myApps.reduce((sum, a) => sum + (a.downloads || 0), 0);
-            
-            return `
-                <header class="header"><div class="header-content"><div style="display:flex;align-items:center;gap:16px;">
-                    <button onclick="navigateTo('home')" style="background:none;border:none;padding:8px;cursor:pointer;">${icons.back}</button>
-                    <h1 style="font-weight:600;">My Profile</h1>
-                </div></div></header>
-                
-                <main class="main" style="padding-top:24px;">
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-avatar">${(currentUser.name || currentUser.email || 'U')[0].toUpperCase()}</div>
-                            <div><h2 class="profile-name">${currentUser.name || 'User'}</h2><div class="profile-email">${icons.mail}<span>${currentUser.email}</span></div></div>
-                        </div>
-                        <div class="profile-stats">
-                            <div class="profile-stat"><div class="profile-stat-val">${myApps.length}</div><div class="profile-stat-label">Uploads</div></div>
-                            <div class="profile-stat"><div class="profile-stat-val">${formatNumber(totalDownloads)}</div><div class="profile-stat-label">Downloads</div></div>
-                        </div>
-                        <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="logout()">${icons.logout} Sign Out</button>
-                    </div>
-                    
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                        <h3 style="font-size:18px;font-weight:600;">My Uploads</h3>
-                        <a href__="#" onclick="navigateTo('upload');return false;" style="color:${dailyColors.primary};font-weight:500;">${icons.plus} Add</a>
-                    </div>
-                    
-                    ${myApps.length > 0 ? myApps.map(app => `
-                        <div class="app-card" onclick="viewApp('${app.id}')">
-                            <div class="app-icon-wrap">${renderAppIcon(app, 80, 16)}<div class="app-badge">${getCategoryIcon(app.category)}</div></div>
-                            <div class="app-info"><div class="app-title">${app.title || 'Untitled'}</div><div class="app-stats"><span>${icons.download} ${formatNumber(app.downloads)}</span></div></div>
-                        </div>
-                    `).join('') : `<div class="section" style="text-align:center;padding:40px;"><div class="empty-icon" style="margin:0 auto 16px;">${icons.file}</div><h3>No uploads yet</h3><button class="btn" onclick="navigateTo('upload')" style="margin-top:16px;">${icons.plus} Upload Now</button></div>`}
-                </main>
-                ${renderBottomNav()}
-            `;
-        }
-        
-        // ========== EVENT HANDLERS ==========
-        function showLoginModal() {
-            const modal = document.createElement('div');
-            modal.id = 'loginModal'; modal.className = 'modal';
-            modal.innerHTML = `<div class="modal-content"><div class="modal-header"><h2>Sign In</h2><button class="modal-close" onclick="closeLoginModal()">${icons.x}</button></div>
-                <form onsubmit="handleLogin(event)">
-                    <label class="form-label-sm">Full Name</label><input type="text" name="name" class="form-input" placeholder="John Doe" required>
-                    <label class="form-label-sm">Email</label><input type="email" name="email" class="form-input" placeholder="john@example.com" required>
-                    <button type="submit" class="btn" style="width:100%;justify-content:center;padding:14px;margin-top:8px;">Sign In</button>
-                </form>
-            </div>`;
-            document.body.appendChild(modal);
-        }
-        
-        function closeLoginModal() { const m = document.getElementById('loginModal'); if (m) m.remove(); }
-        
-        async function handleLogin(e) {
-            e.preventDefault();
-            currentUser = { name: e.target.name.value, email: e.target.email.value, createdDate: new Date().toISOString() };
-            try { await saveUserToDB(currentUser); } catch (err) { console.error(err); }
-            closeLoginModal(); render();
-        }
-        
-        function logout() { currentUser = null; navigateTo('home'); }
-        
-        function selectUploadCategory(cat) {
-            uploadCategory = cat;
-            uploadDownloadType = cat === 'app' ? 'apk' : cat === 'book' ? 'pdf' : 'audio';
-            uploadFileName = null; uploadFileSize = null; uploadFileBase64 = null;
-            render();
-        }
-        
-        function selectUploadDownloadType(type) {
-            uploadDownloadType = type;
-            uploadFileName = null; uploadFileSize = null; uploadFileBase64 = null;
-            render();
-        }
-        
-        async function handleUploadIconSelect(input) {
-            if (input.files && input.files[0]) {
-                const base64 = await fileToBase64(input.files[0]);
-                uploadIconBase64 = await compressImage(base64, 200, 0.8);
-                uploadIconPreview = uploadIconBase64;
-                render();
-            }
-        }
-        
-        function removeUploadIcon() { uploadIconPreview = null; uploadIconBase64 = null; render(); }
-        
-        async function handleUploadFileSelect(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                uploadFileName = file.name;
-                uploadFileSize = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-                uploadFileBase64 = await fileToBase64(file);
-                render();
-            }
-        }
-        
-        function removeUploadFile() { uploadFileName = null; uploadFileSize = null; uploadFileBase64 = null; render(); }
-        
-        async function handleUploadScreenshotSelect(input) {
-            if (input.files && input.files[0]) {
-                const base64 = await fileToBase64(input.files[0]);
-                uploadScreenshots.push(await compressImage(base64, 400, 0.7));
-                render();
-            }
-        }
-        
-        function removeUploadScreenshot(i) { uploadScreenshots.splice(i, 1); render(); }
-        
-        async function handleUploadSubmit() {
-            if (!uploadFormData.title.trim()) { alert('Please enter a title'); return; }
-            if (!uploadIconBase64) { alert('Please select an icon'); return; }
-            if (uploadDownloadType === 'pwa') {
-                if (!uploadFormData.pwaUrl.trim()) { alert('Please enter a PWA URL'); return; }
-            } else {
-                if (!uploadFileBase64) { alert('Please select a file'); return; }
-            }
-            
-            isUploading = true; uploadProgress = 30; uploadStatus = 'Preparing...'; render();
-            
-            try {
-                uploadProgress = 60; uploadStatus = 'Saving...'; render();
-                
-                await saveAppToDB({
-                    title: uploadFormData.title,
-                    shortDesc: uploadFormData.shortDesc,
-                    description: uploadFormData.description,
-                    category: uploadCategory,
-                    downloadType: uploadDownloadType,
-                    downloadUrl: uploadDownloadType === 'pwa' ? uploadFormData.pwaUrl : '',
-                    fileBase64: uploadDownloadType === 'pwa' ? '' : uploadFileBase64,
-                    iconUrl: uploadIconBase64,
-                    screenshots: uploadScreenshots,
-                    version: uploadFormData.version || '1.0',
-                    size: uploadFileSize || '',
-                    tags: (uploadFormData.tags || '').split(',').map(t => t.trim()).filter(Boolean),
-                    author: currentUser.name,
-                    authorEmail: currentUser.email,
-                    downloads: 0,
-                    createdDate: new Date().toISOString()
-                });
-                
-                uploadProgress = 100; uploadStatus = 'Done!'; render();
-                await loadAppsFromDB();
-                resetUploadData();
-                navigateTo('home');
-                
-            } catch (error) {
-                console.error('Upload error:', error);
-                alert('Upload failed: ' + error.message);
-                isUploading = false; render();
-            }
-        }
-        
-        function shareApp() {
-            const app = getAllApps().find(a => a.id === selectedAppId);
-            if (app && navigator.share) navigator.share({ title: app.title, text: app.shortDesc, url: window.location.href });
-        }
-        
-        // ========== MAIN ==========
         function render() {
             let html = '';
-            switch (currentPage) {
-                case 'detail': html = renderDetail(); break;
-                case 'upload': html = renderUpload(); break;
-                case 'profile': html = renderProfile(); break;
-                default: html = renderHome();
+            if (currentPage === 'detail') {
+                renderDetail().then(h => document.getElementById('app').innerHTML = h);
+            } else if (currentPage === 'profile') {
+                html = renderProfile();
+                document.getElementById('app').innerHTML = html;
+            } else {
+                html = renderHome();
+                document.getElementById('app').innerHTML = html;
             }
-            document.getElementById('app').innerHTML = html;
         }
         
-        // Initialize
-        applyDailyColors();
+        // ========== INIT ==========
+        applyColors();
+        setInterval(applyColors, 60000);
         render();
         loadAppsFromDB();
-        
-        
-        
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("service-worker.js");
-        }
     </script>
 </body>
 </html>
