@@ -1,20 +1,20 @@
 
 {
-  "name": "Home45",
-  "short_name": "Home45",
-  "description": "Buy your nw address from home45",
+  "name": "BeelzeApps",
+  "short_name": "BeelzeApps",
+  "description": "Share your apps with us ",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F5E427",
   "theme_color": "#F5E427",
   "icons": [
     {
-      "src": "https://i.postimg.cc/RZjKFKqz/Notes-251021-121356-873.png",
+      "src": "https://i.postimg.cc/x8SV2H8r/IMG-3512.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.postimg.cc/RZjKFKqz/Notes-251021-121356-873.png",
+      "src": "https://i.postimg.cc/x8SV2H8r/IMG-3512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
