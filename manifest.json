@@ -5,8 +5,8 @@
   "description": "Share your apps with us ",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F5E427",
-  "theme_color": "#F5E427",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "https://i.postimg.cc/L5PsZ2vw/Screenshot-20260122-204929-com-google-android-youtube-edit-128026005216681.jpg",
