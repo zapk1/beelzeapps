@@ -9,12 +9,14 @@
   "theme_color": "#FFFFFF",
   "icons": [
     {
-      "src": "https://i.postimg.cc/wxVR88B3/IMG-3684.png",
+      "src": "<img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6995ed631fdeeacc4c78f76b/7b944d78b_file_00000000ea8071f88c78f45ed42724ba.png" />
+",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.postimg.cc/wxVR88B3/IMG-3684.png",
+      "src": "<img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6995ed631fdeeacc4c78f76b/7b944d78b_file_00000000ea8071f88c78f45ed42724ba.png" />
+",
       "sizes": "512x512",
       "type": "image/png"
     }
